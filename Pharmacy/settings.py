@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-6i61^!xlz#r&zad0j_=r74chcm$#rgy*3jb=9nj5k(w#uepne1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -54,7 +54,7 @@ ROOT_URLCONF = "Pharmacy.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates/'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
