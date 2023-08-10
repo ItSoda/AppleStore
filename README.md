@@ -1,1 +1,1 @@
-Pharmacy project --- development stage
+AppleStore project --- development stage
