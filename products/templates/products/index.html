@@ -1,0 +1,51 @@
+{% load static %}
+
+<html>
+	<head>
+		<title>AppleRedStore</title>
+		<link rel="stylesheet" href="{% static 'red/css/index.css' %}"/>
+	</head>
+	<body>
+	<div class="contr">
+        <div class="head">
+         <div class="head_wrap"> 
+         <nav class="one">
+        <ul>
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% url 'products:catalog' %}">Каталог</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+            {% else %}
+            <li><a href="{% url 'users:registration' %}">Регистрация</a></li>
+            {% endif %}
+            <li><a href="#">Корзина</a></li>
+         </ul>
+        </nav>          
+	    </div>            
+        <div class="d7">
+         <img class=f4 src="{% static 'red/img/Group 2 (3).png' %}">    
+         <form action="{% url 'products:search' %}" method="get">
+            <input type="text" placeholder="Поиск" name="q">
+            <button type="submit"></button>
+        </form>
+        </div>
+	    </div>
+        <div class="txt_1">
+        <span>Вся линейка iPhone <br>по самой лучшей цене</span>
+        </div>
+        <div class="first_cont">
+        <div class="txt_2">
+        <h1>iPhone 14. Большой.И пребольшой.<h1>
+        <p>Встречайте iPhone 14 и 
+        <br>большой iPhone 14 Plus. С 
+        <br>функцией распознавания аварий. Сроком 
+        <br>службы батареи больше, чем когда-либо. 
+        <br>И ещё более впечатляющими снимками 
+        <br>при слабом освещении. 
+        <br>Всё в пяти великолепных цветах.</p>
+        </div>
+        <img class=f3 src="{% static 'red/img/Group 10 (1).png' %}">
+        </div>  
+	</div>		
+    </body>
+</html>

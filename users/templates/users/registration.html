@@ -1,0 +1,39 @@
+{% load static %}
+
+
+<html>
+	<head>
+		<title>AppleRedStore - Registration</title>
+		<link rel="stylesheet" href="{% static 'red/css/registration.css' %}"/>
+	</head>
+	<body>
+<form action="{% url 'users:registration' %}" method="post">
+  {% csrf_token %}
+  <div class="container">
+    <h1>Регистрация</h1>
+    <p>Пожалуйста,заполните поля для создания аккаунта</p>
+    <hr>
+
+    <label for="{{ form.username.id_for_label }}"><b>Имя пользователя</b></label>
+    {{ form.username }}
+
+    <label for="{{ form.email.id_for_label }}"><b>Электронная почта</b></label>
+    {{ form.email }}
+
+    <label for="{{ form.password1.id_for_label }}"><b>Пароль</b></label>
+    {{ form.password1 }}
+  
+    <label for="{{ form.password2.id_for_label }}"><b>Повторите пароль</b></label>
+    {{ form.password2 }}
+    <hr>
+
+    <p>Создавая учетную запись, вы соглашаетесь с нашими <a href="#">сведениями о обработке персоональных данных</a>.</p>
+    <button type="submit" class="registerbtn">Регистрироваться</button>
+  </div>
+
+  <div class="container signin">
+    <p>У вас уже есть аккаут? <a href="{% url 'users:login' %}">Войти</a>.</p>
+  </div>
+</form>
+</body>
+</html>

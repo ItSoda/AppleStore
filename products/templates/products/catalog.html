@@ -1,0 +1,51 @@
+{% load static humanize %}
+
+<html>
+	<head>
+		<title>AppleRedStore - Catalog</title>
+		<link rel="stylesheet" href="{% static 'red/css/catalog.css' %}"/>
+	</head>
+	<body>
+	<div class="contr">
+        <div class="head">
+            <div class="head_wrap"> 
+            <nav class="one">
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'products:catalog' %}">Каталог</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+                {% else %}
+                <li><a href="{% url 'users:registration' %}">Регистрация</a></li>
+                {% endif %}
+                <li><a href="#">Корзина</a></li>
+            </ul>
+            </nav>          
+	        </div>            
+            <div class="d7">
+                <img class=f4 src="{% static 'red/img/Group 2 (3).png' %}">    
+                <form action="{% url 'products:search' %}" method="get">
+                    <input type="text" placeholder="Поиск" name="q">
+                    <button type="submit"></button>
+                </form>
+            </div>
+	    </div>
+        {% for product in object_list %}
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="{{ product.image.url }}" alt="Apple IPhone 14 PRO Max Gold"/></a>
+                <div class="card__label">{{ product.discount|intcomma}}%</div>
+            </div>
+            <div class="card__bottom">
+                <div class="card__prices">
+                    <div class="card__price card__price--discount">{{ product.discount_price|intcomma }}</div>
+                    <div class="card__price card__price--common">{{ product.price|intcomma }}</div>
+                </div>
+                <a href="#" class="card__title">{{ product.name }}</a>
+                <button class="card__add">В корзину</button>
+            </div>
+        </div>
+        {% endfor %}
+	</div>		
+    </body>
+</html>
