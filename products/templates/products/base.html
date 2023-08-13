@@ -1,0 +1,38 @@
+{% load static %}
+<html>
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		{% block css %}{% endblock %}
+	</head>
+	<body>
+	<div class="contr">
+        <div class="head">
+            <div class="head_wrap"> 
+            <nav class="one">
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'products:catalog' %}">Каталог</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+                {% else %}
+                <li><a href="{% url 'users:login' %}">Войти</a></li>
+                {% endif %}
+                <li><a href="#">Корзина</a></li>
+                {% if user.is_stuff or user.is_superuser %}
+                <li><a href="{% url 'admin:index' %}">stuff</a></li>
+                {% endif %}
+            </ul>
+            </nav>          
+	        </div>            
+            <div class="d7">
+                <img class=f4 src="{% static 'red/img/Group 2 (3).png' %}">    
+                <form action="{% url 'products:search' %}" method="get">
+                    <input type="text" placeholder="Поиск" name="q">
+                    <button type="submit"></button>
+                </form>
+            </div>
+	    </div>
+        {% block content %}{% endblock %}
+    </div>		
+    </body>
+</html>   

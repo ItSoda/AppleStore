@@ -12,14 +12,19 @@
     <p class="form_auth_block_head_text">Авторизация</p>
     <form class="form_auth_style" action="{% url 'users:login' %}" method="post">
       {% csrf_token %}
-      <label for="{{ form.email.id_for_label }}">Введите Вашу электронную почту</label>
-      {{ form.email }}
-      <label for="{{ form.username.id_for_label }}">Введите Ваше имя</label>
+      <label for="{{ form.username.id_for_label }}">Введите Ваш username</label>
       {{ form.username }}
+
+      <!-- <label for="{{ form.email.id_for_label }}">Введите Вашу электронную почту</label>
+      {{ form.email }}
+       -->
       <label for="{{ form.password.id_for_label }}">Введите Ваш пароль</label>
       {{ form.password }}
       <button class="form_auth_button" type="submit" name="form_auth_submit">Войти</button>
     </form>
+    <div class="container signin">
+      <p>У вас еще нет аккаунта? <a href="{% url 'users:registration' %}">Зарегистрироваться</a>.</p>
+    </div>
   </div>
 </div>
 </body>

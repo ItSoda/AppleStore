@@ -5,6 +5,10 @@ class ProductCategory(models.Model):
     name = models.CharField(max_length=128, unique=True)
     description = models.TextField(null=True, blank=True)
 
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+
     def __str__(self):
         return self.name
 
@@ -24,7 +28,7 @@ class Product(models.Model):
 
     def __str__(self):
         return f"Продукт: {self.name} | Категория: {self.category.name} | {self.price}"
-    
+
     def discount_price(self):
         return round(float(self.price) - float(self.price) * float((self.discount / 100)))
 
@@ -35,8 +39,8 @@ class Images(models.Model):
     products_id = models.ForeignKey(to=Product, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Image'
-        verbose_name_plural = 'Images'
+        verbose_name = 'фотогрфия'
+        verbose_name_plural = 'фотографии'
 
     def __str__(self):
         return self.title

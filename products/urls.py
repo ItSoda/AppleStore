@@ -1,6 +1,6 @@
-from django.urls import path, include
-from .views import ProductsListView, Search
+from django.urls import path
 
+from .views import ProductsListView, Search
 
 app_name = 'products'
 

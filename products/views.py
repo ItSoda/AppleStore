@@ -1,18 +1,21 @@
-from typing import Any, Dict
-from django.db.models.query import QuerySet
-from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 
-from .models import Product, ProductCategory, Images
+from common.views import TitleMixin
 
-class IndexView(TemplateView):
+from .models import Images, Product, ProductCategory
+
+
+class IndexView(TitleMixin, TemplateView):
     template_name = 'products/index.html'
+    title = 'AppleRedStore - Home'
 
-class ProductsListView(ListView):
+
+class ProductsListView(TitleMixin, ListView):
     model = Product
     template_name = 'products/catalog.html'
-    
+    title = 'AppleRedStore - Catalog'
+
     def get_queryset(self):
         queryset = super(ProductsListView, self).get_queryset()
         category_id = self.kwargs.get('category_id')
@@ -22,17 +25,16 @@ class ProductsListView(ListView):
         context = super(ProductsListView, self).get_context_data(**kwargs)
         context['categories'] = ProductCategory.objects.all()
         return context
-    
+
+
 class Search(ListView):
     model = Product
     template_name = 'products/catalog.html'
 
     def get_queryset(self):
         return Product.objects.filter(name__icontains=self.request.GET.get("q"))
-    
+
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)
         context["q"] = self.request.GET.get("q")
         return context
-
-
