@@ -1,8 +1,9 @@
 from django.contrib import admin
 
 from .models import User
-
+from products.admin import BasketAdmin
 
 @admin.register(User)
-class ProductAdmin(admin.ModelAdmin):
+class UserAdmin(admin.ModelAdmin):
     list_display = ('email', 'username',)
+    inlines = (BasketAdmin, )

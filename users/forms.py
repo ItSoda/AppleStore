@@ -9,11 +9,9 @@ from users.models import EmailVerification, User
 
 
 class UserLoginForm(AuthenticationForm):
-    # email = forms.CharField(widget=forms.EmailInput(attrs={
-    #     'class': "form_auth_style", 'placeholder': "Введите адрес электронной почты"
-    # }))
-    username = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': "Введите имя", 'required': "True"
+    
+    username = forms.CharField(widget=forms.EmailInput(attrs={
+        'class': "form_auth_style", 'placeholder': "Введите адрес электронной почты"
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': "form_auth_style", 'placeholder': "Введите пароль"
@@ -21,13 +19,11 @@ class UserLoginForm(AuthenticationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'password',)
+        fields = ('username', 'password')
+
 
 
 class UserRegistrationForm(UserCreationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': "Введите имя", 'required': "True"
-    }))
     email = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': "Введите адрес электронной почты", 'required': "True"
     }))
@@ -40,7 +36,7 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('email', 'password1', 'password2')
 
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=True)

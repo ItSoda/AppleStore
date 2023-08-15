@@ -1,0 +1,66 @@
+{% load static humanize %}
+
+
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<link rel="stylesheet" href="{% static 'red/css/basket.css' %}"/>
+    <link rel="stylesheet" href="{% static 'red/css/index.css' %}"/>
+	</head>
+	<body>
+	<div class="contr">
+        <div class="head">
+            <div class="head_wrap"> 
+            <nav class="one">
+            <ul>
+              <li><a href="{% url 'index' %}">Главная</a></li>
+              <li><a href="{% url 'products:catalog' %}">Каталог</a></li>
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'products:basket' %}">Корзина</a></li>
+              {% if user.is_stuff or user.is_superuser %}
+                <li><a href="{% url 'admin:index' %}">stuff</a></li>
+              {% endif %}
+              <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+              {% else %}
+              <li><a href="{% url 'users:login' %}">Войти</a></li>
+              {% endif %}
+            </ul>
+            </nav>          
+	        </div>           
+	    </div>
+{% if baskets %}
+        <div class="shopping-cart">
+      <!-- Товар #1 -->
+      {% for basket in baskets %}
+            <div class="item">
+              <a href="{% url 'products:basket_remove' basket.id %}">
+                <div class="image">
+                    <img class=box src="free-icon-recycling-bin-73806.png"/>
+                    <img class=photo src="{{ basket.product.image.url }}" alt="" />
+                </div>
+              </a>
+                <div class="description">
+                    <span>{{ basket.product.name }}</span>
+                    <span>{{ basket.product.color }}</span>
+                </div>
+            <div class="quantity">
+              <a href="{% url 'products:basket_minus' basket.product.id %}">
+                <button class="minus-btn" type="button" name="button">
+                    <img src="minus.svg" alt="" />
+                </button>
+              </a>
+                <input type="text" name="name" value="{{ basket.quantity }}">
+              <a href="{% url 'products:basket_plus' basket.product.id %}">
+                <button class="plus-btn" type="button" name="button">
+                    <img src="plus.svg" alt="" />
+                </button>
+              </a>
+            </div>
+            <div class="total-price">{{ basket.sum|intcomma }} ₽</div>
+            </div>
+      {% endfor %}
+{% else %}
+<div class="txt_1">
+  <span>Корзина пустая, чтобы добавить товары перейдите в каталог</span>
+</div>
+{% endif %}

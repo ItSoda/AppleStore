@@ -10,7 +10,7 @@ from .forms import UserLoginForm, UserRegistrationForm
 from .models import EmailVerification, User
 
 
-class Registration(CreateView):
+class RegistrationCreateView(CreateView):
     model = User
     form_class = UserRegistrationForm
     template_name = 'users/registration.html'
