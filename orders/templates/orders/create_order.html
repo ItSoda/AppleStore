@@ -1,0 +1,46 @@
+{% load static %}
+
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<link rel="stylesheet" href="{% static 'red/css/order.css' %}"/>
+	</head>
+	<body>
+    <div class="contr">
+      <div class="head">
+          <div class="head_wrap"> 
+          <nav class="one">
+          <ul>
+              <li><a href="{% url 'index' %}">Главная</a></li>
+              <li><a href="{% url 'products:catalog' %}">Каталог</a></li>
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'products:basket' %}">Корзина</a></li>
+              {% if user.is_stuff or user.is_superuser %}
+              <li><a href="{% url 'admin:index' %}">stuff</a></li>
+              {% endif %}
+              <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+              {% else %}
+              <li><a href="{% url 'users:login' %}">Войти</a></li>
+              {% endif %}
+          </ul>
+            </nav>          
+	        </div>          
+	    </div>
+<form action="{% url 'orders:order_create' %}" method="post">
+  {% csrf_token %}
+  <div class="container">
+    <h1>Оформление заказа</h1>
+    <hr>
+    <label for="{{ form.first_name.id_for_label }}"><b>Имя</b></label>
+    {{ form.first_name }}
+    <label for="{{ form.last_name.id_for_label }}"><b>Фамилия</b></label>
+    {{ form.last_name }}
+    <label for="{{ form.email.id_for_label }}"><b>Электронная почта</b></label>
+    {{ form.email }}
+    <label for="{{ form.address.id_for_label }}"><b>Адрес</b></label>
+    {{ form.address }}
+    <hr>
+    <form action=# target="_blank">
+    <button type="submit" class="registerbtn">Заказать</button>
+  </div>
+</form>

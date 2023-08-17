@@ -35,7 +35,7 @@
             <div class="item">
               <a href="{% url 'products:basket_remove' basket.id %}">
                 <div class="image">
-                    <img class=box src="free-icon-recycling-bin-73806.png"/>
+                        <img class=box src="{% static 'red/img/basket_bank.png' %}"/>
                     <img class=photo src="{{ basket.product.image.url }}" alt="" />
                 </div>
               </a>
@@ -59,6 +59,10 @@
             <div class="total-price">{{ basket.sum|intcomma }} ₽</div>
             </div>
       {% endfor %}
+      <div class="quantity">
+        <form action="{% url 'orders:order_create' %}" target="_blank">   
+        <button class="card__add">заказать</button>              
+</div>
 {% else %}
 <div class="txt_1">
   <span>Корзина пустая, чтобы добавить товары перейдите в каталог</span>

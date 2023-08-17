@@ -13,8 +13,9 @@
 
 {% block content %}
 {% for product in object_list %}
+    <div class="carde">
     <div class="card">
-             <div class="card__top">
+            <div class="card__top">
                 <a href="#" class="card__image"><img src="{{ product.image.url }}" alt="Apple IPhone 14 PRO Max Gold"/></a>
                 <div class="card__label">{{ product.discount|intcomma}}%</div>
             </div>
@@ -31,6 +32,7 @@
                     <button class="card__add">В корзину</button>
                 </a>
             </div>
+    </div>
     </div>
 {% endfor %}
 {% endblock %}

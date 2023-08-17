@@ -1,0 +1,130 @@
+.head{
+    width: 100%;
+    
+}
+.head_wrap{
+    margin: 0px 95px 1px 95px;
+    border-radius: 0px 0px 35px 34px;
+    text-align: center;
+    box-shadow: 0px 0px 25px 0px rgb(0 0 0 / 10%);
+    background-color: #EA2727;
+}
+.rh-flex-center-align {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+.txt_1{
+    
+    text-align: center;
+    padding: 30px 30px 0px 30px
+}
+span{
+    text-align: center;
+    font-size: 60;
+    font-family: sans-serif;
+}
+.first_cont{
+    margin:0px 80px 1px 80px;
+   
+    border-radius: 10px;
+    box-shadow: 0px 0px 25px 0px rgb(0 0 0 / 10%);
+}
+p{
+    font-size: 30;
+    font-family: sans-serif;
+    float:left;
+}
+h1{
+    font-family: sans-serif;
+    margin-top: 20
+}
+.f3{
+    margin: 0px 0px 0px 120px;
+}
+body {margin:0;}
+ul {
+  list-style: none; 
+  margin: 0 auto;
+}
+a {
+  text-decoration: none;
+  font-family: sans-serif;
+  transition: .5s linear;
+}
+nav {
+  display: block;
+  width: 660px;
+  margin: 0 auto 30px;
+  
+}
+.one ul {
+  padding: 1em 0;
+  background: #EA2727;
+  border-radius: 10px;
+}
+.one a {
+  padding: 1em;
+  color: #ffffff;
+  border-radius: 10px;
+}
+.one a:hover {background: #EA2727}
+.one li {
+  display: inline;
+}
+.two ul {
+  background: #000000;
+  overflow: hidden;
+  padding: 0;
+}
+.two li {
+  float: left;
+}
+* {box-sizing: border-box}
+.container {
+  padding: 16px;
+  margin: 0px 95px 1px 95px;
+}
+input[type=text],input[type=name],input[type=surname] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus,input[type=name]:focus,input[type=surname]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.registerbtn {
+  background-color: #ff0909;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  border-radius: 10px;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+a {
+  color: dodgerblue;
+}
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+h1,b,p{
+    font-family:sans-serif ;
+}
