@@ -5,7 +5,6 @@
 	<head>
 		<title>{{ title }}</title>
 		<link rel="stylesheet" href="{% static 'red/css/basket.css' %}"/>
-    <link rel="stylesheet" href="{% static 'red/css/index.css' %}"/>
 	</head>
 	<body>
 	<div class="contr">
@@ -29,7 +28,7 @@
 	        </div>           
 	    </div>
 {% if baskets %}
-        <div class="shopping-cart">
+      <div class="shopping-cart">
       <!-- Товар #1 -->
       {% for basket in baskets %}
             <div class="item">
@@ -57,12 +56,10 @@
               </a>
             </div>
             <div class="total-price">{{ basket.sum|intcomma }} ₽</div>
-            </div>
+            <form action="{% url 'orders:order_create' %}" target="_blank">   
+              <button class="card__add">заказать</button>  
+          </div>
       {% endfor %}
-      <div class="quantity">
-        <form action="{% url 'orders:order_create' %}" target="_blank">   
-        <button class="card__add">заказать</button>              
-</div>
 {% else %}
 <div class="txt_1">
   <span>Корзина пустая, чтобы добавить товары перейдите в каталог</span>

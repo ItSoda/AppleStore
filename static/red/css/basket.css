@@ -265,50 +265,23 @@ nav {
 .box{
   margin: 0px 0px 30px 0px;
 }
-.d7 {
-  padding: 20px 30px;
-  background-color: #EA2727;
-  margin:20px 95px 1px 95px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 25px 0px rgb(0 0 0 / 10%);
+.card__add {
+  display: block;
+  width: 100%;
+  font-weight: 400;
+  font-size: 17px;
+  color: #70c05b;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #70c05b;
+  border-radius: 4px;
+  cursor: pointer; 
+  transition: 0.2s;
+  margin-top: auto; 
 }
-.d7:after {content:""; clear:both; display:table}
-.d7 form {
-width: auto;
-margin-right: 30px;
-}
-.d7 input {
-width: 250px;
-height: 70px;
-padding-left: 15px;
-border-radius: 42px;
-border: 2px solid #000000;
-background: #ffffff;
-outline: none;
-position: relative;
-transition: .3s linear;
-}
-.d7 input:focus {
-width: 300px;
-height: 60;
-}
-.d7 button {
-width: 42px;
-height: 42px;
-background: none;
-border: none;
-position: absolute;
-top: -2px;
-right: 0;
-}
-.d7 button:before{
-content: "\f002";
-font-family: sans-serif;
-color: #585858;
-}
-.f4{
-  float: left;
-  width: 175;
-  height: 70;
-  margin-right: 50;
+
+.card__add:hover {
+  border: 1px solid #f02424;
+  background-color: #f02424;
+  color: #fff;
 }
