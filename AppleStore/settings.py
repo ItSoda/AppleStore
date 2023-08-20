@@ -168,3 +168,9 @@ EMAIL_HOST_PASSWORD = 'lefwxoyezvzlcmuh'
 EMAIL_USE_SSL = True
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# stripe
+
+STRIPE_PUBLIC_KEY = 'pk_test_51NgOL7FafsvnOu41dCDWTExxzzMuALtmtCwys5ceOzb1r3vSjBMndHJVe7wCIQ9OJEMp6YbuAUIcKKxaGwiMM8Fx00WsHEvTDM'
+STRIPE_SECRET_KEY = 'sk_test_51NgOL7FafsvnOu41SKYQzdawtX48KY6ay6Pvgp5WFK02OinzBAqcovT7EG2bzansB1vw9THozKrgeEHOFUU9pq4m00oPmj9Ixw'
+WEBHOOK_SECRET_KEY = 'whsec_e115028f6be4f51c77bb01c925d510ba20e4361cdd08533230aa8a6cb3a3b343'

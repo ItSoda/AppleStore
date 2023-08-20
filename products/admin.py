@@ -9,7 +9,7 @@ admin.site.register(Images)
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'color', 'description', 'price', 'quantity', 'discount', 'category')
-    fields = ('name', 'color', 'description', ('price', 'quantity'), 'discount', 'image', 'category')
+    fields = ('name', 'color', 'description', ('price', 'quantity'), 'discount', 'image', 'stripe_product_price_id', 'category')
     search_fields = ('name', )
     ordering = ('name', )
 

@@ -2,7 +2,7 @@ from django import forms
 from .models import Order
 
 
-class OrderCreateForm(forms.ModelForm):
+class OrderForm(forms.ModelForm):
     # style form
     first_name = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': "Иван",

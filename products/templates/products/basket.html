@@ -55,11 +55,11 @@
                 </button>
               </a>
             </div>
-            <div class="total-price">{{ basket.sum|intcomma }} ₽</div>
-            <form action="{% url 'orders:order_create' %}" target="_blank">   
-              <button class="card__add">заказать</button>  
+            <div class="total-price">{{ basket.sum|intcomma }} ₽</div>  
           </div>
       {% endfor %}
+      <form action="{% url 'orders:order_create' %}" target="_blank">   
+        <button class="card__add">заказать</button>
 {% else %}
 <div class="txt_1">
   <span>Корзина пустая, чтобы добавить товары перейдите в каталог</span>

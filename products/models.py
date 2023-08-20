@@ -1,5 +1,10 @@
 from django.db import models
 from users.models import User
+import stripe 
+from django.conf import settings
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=128, unique=True)
@@ -21,6 +26,7 @@ class Product(models.Model):
     quantity = models.PositiveBigIntegerField(default=0)
     discount = models.IntegerField(default=0)
     image = models.ImageField(upload_to='product_images', null=True, blank=True)
+    stripe_product_price_id = models.CharField(max_length=128, null=True, blank=True)
     category = models.ForeignKey(to=ProductCategory, on_delete=models.CASCADE)
 
     class Meta:
@@ -30,8 +36,23 @@ class Product(models.Model):
     def __str__(self):
         return f"Продукт: {self.name} | Категория: {self.category.name} | {self.price}"
 
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if not self.stripe_product_price_id:
+            stripe_product_price = self.create_stripe_product_price()
+            self.stripe_product_price_id = stripe_product_price['id']
+        return super(Product, self).save(force_insert=False, force_update=False, using=None, update_fields=None)
+    
     def discount_price(self):
         return round(float(self.price) - float(self.price) * float((self.discount / 100)))
+
+    def create_stripe_product_price(self):
+        stripe_product = stripe.Product.create(name=self.name)
+        stripe_product_price = stripe.Price.create(
+            product=stripe_product['id'],
+            unit_amount=round(self.price * 100),
+            currency="rub",
+            )
+        return stripe_product_price
 
 
 class Images(models.Model):
@@ -47,11 +68,24 @@ class Images(models.Model):
         return self.title
 
 
+class BasketQuerySet(models.QuerySet):
+    def stripe_products(self):
+        line_items = []
+        for basket in self:
+            item = {
+                'price': basket.product.stripe_product_price_id,
+                'quantity': basket.quantity
+            }
+            line_items.append(item)
+        return line_items
+
 class Basket(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
     created_timestamp = models.DateTimeField(auto_now_add=True)
+
+    objects = BasketQuerySet.as_manager()
 
     def __str__(self):
         return f'Корзина для {self.user} | Продукт {self.product}'
@@ -59,3 +93,12 @@ class Basket(models.Model):
     def sum(self):
         return int(self.product.price * self.quantity)
     
+    def de_json(self):
+        basket_item = {
+            'name': self.product.name,
+            'color': self.product.color,
+            'quantity': self.quantity,
+            'price': float(self.product.price),
+            'sum': float(self.sum()),
+        }
+        return basket_item
