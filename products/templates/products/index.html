@@ -8,27 +8,27 @@
 	<body>
 	<div class="contr">
         <div class="head">
-         <div class="head_wrap"> 
-         <nav class="one">
+        <div class="head_wrap"> 
+        <nav class="one">
         <ul>
             <li><a href="{% url 'index' %}">Главная</a></li>
             <li><a href="{% url 'products:catalog' %}">Каталог</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'products:basket' %}">Корзина</a></li>
-            {% if user.is_stuff or user.is_superuser %}
+                {% if user.is_stuff or user.is_superuser %}
             <li><a href="{% url 'admin:index' %}">stuff</a></li>
-            {% endif %}
+                {% endif %}
             <li><a href="{% url 'users:logout' %}">Выйти</a></li>
             {% else %}
             <li><a href="{% url 'users:login' %}">Войти</a></li>
             {% endif %}
-         </ul>
+        </ul>
         </nav>          
 	    </div>            
         <div class="d7">
-         <img class=f4 src="{% static 'red/img/Group 2 (3).png' %}">    
-            <form>
-                <input type="text" placeholder="Поиск">
+            <img class=f4 src="{% static 'red/img/Group 2 (3).png' %}">    
+            <form action="{% url 'products:search' %}" method="get">
+                <input type="text" placeholder="Поиск" name="q">
                 <button type="submit"></button>
             </form>
         </div>
@@ -50,7 +50,7 @@
         <img class=f3 src="{% static 'red/img/Group 10 (1).png' %}">
         </div>  
         <div class="container flex-test-wrap">
-       <!-- Товар #1 -->
+        <!-- Товар #1 -->
         {% for product in object_list %}
         <div class="carde"> 
         <div class="card">

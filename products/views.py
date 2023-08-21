@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import render
 from common.views import TitleMixin
 
 from .models import Images, Product, ProductCategory, Basket
@@ -51,6 +51,7 @@ class Search(ListView):
         context = super(Search, self).get_context_data(**kwargs)
         context["q"] = self.request.GET.get("q")
         return context
+
 
 
 class BasketListView(TitleMixin, ListView):

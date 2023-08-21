@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "django_extensions",
+    "debug_toolbar",
 
     "products",
     "users",
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "AppleStore.urls"
@@ -90,6 +92,12 @@ DATABASES = {
         "PORT": "3306",
     }
 }
+
+# debug toolbar 
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Redis 
 
