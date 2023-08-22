@@ -2,14 +2,14 @@
 
 <html>
 	<head>
-		<title>{{ title }}</title>
+		<title>AppleRedStore - Home</title>
 		<link rel="stylesheet" href="{% static 'red/css/index.css' %}"/>
 	</head>
 	<body>
 	<div class="contr">
         <div class="head">
-        <div class="head_wrap"> 
-        <nav class="one">
+         <div class="head_wrap"> 
+         <nav class="one">
         <ul>
             <li><a href="{% url 'index' %}">Главная</a></li>
             <li><a href="{% url 'products:catalog' %}">Каталог</a></li>
@@ -22,7 +22,7 @@
             {% else %}
             <li><a href="{% url 'users:login' %}">Войти</a></li>
             {% endif %}
-        </ul>
+         </ul>
         </nav>          
 	    </div>            
         <div class="d7">
@@ -33,45 +33,296 @@
             </form>
         </div>
 	    </div>
-        <div class="txt_1">
-        <span>Вся линейка iPhone <br>по самой лучшей цене</span>
-        </div>
-        <div class="first_cont">
+    <div class="txt_1">
+        <div class="pouring">Вся линейка iPhone <br>по самой лучшей цене</div>
+    </div>
+    <div class="first_cont">
         <div class="txt_2">
-        <h1>iPhone 14. Большой.И пребольшой.<h1>
-        <p>Встречайте iPhone 14 и 
-        <br>большой iPhone 14 Plus. С 
-        <br>функцией распознавания аварий. Сроком 
-        <br>службы батареи больше, чем когда-либо. 
-        <br>И ещё более впечатляющими снимками 
-        <br>при слабом освещении. 
-        <br>Всё в пяти великолепных цветах.</p>
+            <h1>iPhone 14. Большой.И пребольшой.</h1>
+            <p>Встречайте iPhone 14 и 
+            <br>большой iPhone 14 Plus. С 
+            <br>функцией распознавания аварий. Сроком 
+            <br>службы батареи больше, чем когда-либо. 
+            <br>И ещё более впечатляющими снимками 
+            <br>при слабом освещении. 
+            <br>Всё в пяти великолепных цветах.</p>
         </div>
         <img class=f3 src="{% static 'red/img/Group 10 (1).png' %}">
-        </div>  
-        <div class="container flex-test-wrap">
-        <!-- Товар #1 -->
-        {% for product in object_list %}
-        <div class="carde"> 
+    </div>  
+    <div class="container flex-test-wrap">
+       <div class="pouring">Новые модели. Выбирайте.</div>
+       <p class=in_cat>Новое поступление запакованных iPhone, пожалуй,по самым лучшим ценам и условиям рассрочки!</p>
+       <!-- Товар #1 -->
+       {% for product in object_list %}
+       <div class="carde"> 
+       <div class="card">
+            <div class="card__top">
+               <a href="#" class="card__image"><img src="{{ product.image.url }}" alt="Apple iPhone 14 PRO Max Gold"/></a>
+               <div class="card__label">{{ product.discount|intcomma }}%</div>
+           </div>
+           <div class="card__bottom">
+               <div class="card__prices">
+                   <div class="card__price card__price--discount">{{ product.discount_price|intcomma }}</div>
+                   <div class="card__price card__price--common">{{ product.price|intcomma }}</div>
+               </div>
+               <a href="#" class="card__title">{{ product.name }}</a>
+               <a href="{% url 'products:basket_add' product.id %}">
+                   <button class="card__add">В корзину</button>
+               </a>
+           </div>
+       </div>
+       </div>
+       {% endfor %}
+        <!-- Товар #2 -->
+        <div class="carde">
         <div class="card">
              <div class="card__top">
-                <a href="#" class="card__image"><img src="{{ product.image.url }}" alt="Apple iPhone 14 PRO Max Gold"/></a>
-                <div class="card__label">{{ product.discount|intcomma }}%</div>
+                <a href="#" class="card__image"><img src="image 7.png" alt="Apple iPhone 14 256GB Starlight (сияющая звезда)"/></a>
+                <div class="card__label">-16%</div>
             </div>
             <div class="card__bottom">
-                <div class="card__prices">
-                    <div class="card__price card__price--discount">{{ product.discount_price|intcomma }}</div>
-                    <div class="card__price card__price--common">{{ product.price|intcomma }}</div>
-                </div>
-                <a href="#" class="card__title">{{ product.name }}</a>
-                <a href="{% url 'products:basket_add' product.id %}">
-                    <button class="card__add">В корзину</button>
-                </a>
+                <a href="#" class="card__title">Apple iPhone 14 256GB (starlight)</a>
             </div>
         </div>
         </div>
-        {% endfor %}
+        <!-- Товар #3 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 11.png" alt="Apple IPhone 12 128GB"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple iPhone 12 128GB (blue)</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #4 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 8.png" alt="Apple iPhone 11 128GB"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple iPhone 11 128GB(black)</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #5 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 9.png" alt="Apple iPhone 11 128GB"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple iPhone 14 128GB (green)</a>
+                
+            </div>
+        </div>
+        </div>
+        <!-- Товар #6 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 10.png" alt="Apple iPhone 11 128GB"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple iPhone 11 128GB (yellow)</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #7 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 12 (1).png" alt="Apple IPhone 11 64GB"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+               <a href="#" class="card__title">Apple iPhone 11 64GB Blue (white)</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #8 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 13.png" alt="Apple IPhone 12 64GB"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple iPhone 12 64GB (red)</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #9 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 14 (1).png" alt="Apple IPhone 12 64GB"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                
+                <a href="#" class="card__title">Apple iPhone 12 64GB (black)</a>
+                
+            </div>
+        </div>
+        </div>
+        <!-- Товар #10 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 15 (1).png" alt="Apple IPhone 13 128GB"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple iPhone 13 128GB (green)</a>            
+            </div>
+        </div>
+        </div>
     </div>
-	</div>		
+    <div class="ads">
+        <div class="adse">
+            <div class="ad_1">
+                <p class=p_ad>30% на аксессуары для твоего iPhone</p>
+                <img src="{% static 'red/img/image 25.png' %}">
+            </div>
+        </div>
+        <div class="adse">
+            <div class="ad_2">
+                <p class=p_ad1>TRADE-IN Получи до 50 000 руб. на новое устройство</p>
+                <img class=php_24 src="{% static 'red/img/image 22.png' %}">
+            </div>
+        </div>    
+        <div class="adse">
+            <div class="ad_3">
+                <img class=php_24 src="{% static 'red/img/image 23.png' %}">
+                <p class=p_ad1>Новый iPhone сейчас, а плати потом! Одобрение 98% заявок.</p>
+            </div>
+        </div>   
+        <div class="adse">
+            <div class="ad_4">
+                <img class=php_24 src="{% static 'red/img/image 24.png' %}">
+                <p class=p_ad1>Получи до 50 000 руб. на новое устройство</p>
+            </div>
+        </div>   
+    </div>
+    <img class=php26 src="{% static 'red/img/image 26.png' %}">
+	<div class="airpods">
+        <div class="pouring">AirPods. Чтобы любимые <br>песни зазвучали по‑новому.</div>
+        <p class=pods>Звук высокой чёткости. Активное<br> шумоподавление и Прозрачный<br> режим. Пространственное аудио на<br> AirPods создаёт ощущение объёмного<br> звука — будто в кинотеатре.От 9 500 pyб.</p>
+        <img class=php30 src="{% static 'red/img/image 30.png' %}">
+    <div class="aircat">
+    <!-- Товар #1 -->
+       <div class="carde"> 
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 31.png" alt="Apple AirPods 2"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple AirPods 2</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #2 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 32.png" alt="Apple AirPods 3"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple AirPods 3</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #3 -->
+        <div class="carde">
+        <div class="card">
+            <div class="card__top">
+                <a href="#" class="card__image"><img src="image 33.png" alt="Apple AirPods Pro"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple AirPods Pro</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #4 -->
+        <div class="carde">
+        <div class="card">
+            <div class="card__top">
+                <a href="#" class="card__image"><img src="image 34.png" alt="Apple AirPods Pro 2"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple AirPods Pro 2</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    	<div class="watchs">
+        <div class="pouring">Watch. Чтобы достижения <br>были выше.</div>
+        <p class=pods>Когда на вашем запястье Apple<br> Watch Series 7, гораздо проще<br> вести более здоровый образ<br> жизни, быть активнее и<br> оставаться на связи<br>От 23 990 pyб.</p>
+        <img class=php30 src="{% static 'red/img/image 35 (1).png' %}">
+    <div class="aircat">
+    <!-- Товар #1 -->
+       <div class="carde"> 
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="Group 13.png" alt="Apple Watch S6 40mm Gold"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple Watch S6 40mm Gold</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #2 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 36.png" alt="Apple Watch S8 45mm (Midnight)"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple Watch S8 45mm (Midnight)</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #3 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 37.png" alt="Apple Watch SE, 40 мм"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple Watch SE, 40 мм,</a>
+            </div>
+        </div>
+        </div>
+        <!-- Товар #4 -->
+        <div class="carde">
+        <div class="card">
+             <div class="card__top">
+                <a href="#" class="card__image"><img src="image 39.png" alt="Apple Watch Ultra 49mm (Starlight)"/></a>
+                <div class="card__label">-16%</div>
+            </div>
+            <div class="card__bottom">
+                <a href="#" class="card__title">Apple Watch Ultra 49mm (Starlight)</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    </div>		
     </body>
 </html>
