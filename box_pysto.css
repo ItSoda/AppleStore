@@ -1,0 +1,157 @@
+body{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.head{
+    width: 100%;
+    
+}
+.head_wrap{
+    margin: 0px 95px 1px 95px;
+    border-radius: 0px 0px 35px 34px;
+    text-align: center;
+    box-shadow: 0px 0px 25px 0px rgb(0 0 0 / 10%);
+    background-color: #EA2727;
+}
+.rh-flex-center-align {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+.txt_1{
+    
+    text-align: center;
+    padding: 30px 30px 0px 30px
+}
+span{
+    text-align: center;
+    font-size: 60;
+    font-family: sans-serif;
+}
+.first_cont{
+    margin:0px 80px 1px 80px;
+   
+    border-radius: 10px;
+    box-shadow: 0px 0px 25px 0px rgb(0 0 0 / 10%);
+}
+p{
+    font-size: 14;
+    font-family: sans-serif;
+    text-align: center;
+    color: #949393;
+}
+h1{
+    font-family: sans-serif;
+    margin-top: 40;
+    font-size: 24;
+    text-align: center;
+}
+.f3{
+    margin: 0px 0px 0px 120px;
+}
+body {margin:0;}
+ul {
+  list-style: none; 
+  margin: 0 auto;
+}
+a {
+  text-decoration: none;
+  font-family: sans-serif;
+  transition: .5s linear;
+}
+nav {
+  display: block;
+  width: 660px;
+  margin: 0 auto 30px;
+  
+}
+.one ul {
+  padding: 1em 0;
+  background: #EA2727;
+  border-radius: 10px;
+}
+.one a {
+  padding: 1em;
+  color: #ffffff;
+  border-radius: 10px;
+}
+.one a:hover {background: #ff6767;}
+.one li {
+  display: inline;
+}
+.two ul {
+  background: #000000;
+  overflow: hidden;
+  padding: 0;
+}
+.two li {
+  float: left;
+}
+.d7 {
+    padding: 20px 30px;
+    background-color: #EA2727;
+    margin:20px 95px 1px 95px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 25px 0px rgb(0 0 0 / 10%);
+}
+.d7:after {content:""; clear:both; display:table}
+.d7 form {
+  width: auto;
+  margin-right: 30px;
+}
+.d7 input {
+  width: 250px;
+  height: 70px;
+  padding-left: 15px;
+  border-radius: 42px;
+  border: 2px solid #000000;
+  background: #ffffff;
+  outline: none;
+  position: relative;
+  transition: .3s linear;
+}
+.d7 input:focus {
+  width: 300px;
+  height: 60;
+}
+.d7 button {
+  width: 42px;
+  height: 42px;
+  background: none;
+  border: none;
+  position: absolute;
+  top: -2px;
+  right: 0;
+}
+.d7 button:before{
+  content: "\f002";
+  font-family: sans-serif;
+  color: #585858;
+}
+.f4{
+    float: left;
+    width: 175;
+    height: 70;
+    margin-right: 50;
+}
+.card__add {
+    display: block;
+    font-weight: 400;
+    width: 500;
+    font-size: 17px;
+    color: #ff0000;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ff0000;
+    border-radius: 4px;
+    cursor: pointer; 
+    transition: 0.2s;
+    margin: 20px 0px 1px 95px;
+  }
+  
+  .card__add:hover {
+    border: 1px solid #f02424;
+    background-color: #f02424;
+    color: #fff;
+  }

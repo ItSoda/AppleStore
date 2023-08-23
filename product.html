@@ -1,0 +1,106 @@
+<html>
+	<head>
+		<title>AppleRedStore - Catalog</title>
+		<link rel="stylesheet" href="product.css"/>
+	</head>
+	<body>
+	<div class="contr">
+        <div class="head">
+            <div class="head_wrap"> 
+            <nav class="one">
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+                <li><a href="registration.html">Регистрация</a></li>
+                <li><a href="box.html">Корзина</a></li>
+            </ul>
+            </nav>          
+	        </div>            
+            <div class="d7">
+                <img class=f4 src="Group 2 (3).png">    
+                <form>
+                    <input type="text" placeholder="Поиск">
+                    <button type="submit"></button>
+                </form>
+            </div>
+	    </div>
+        <div class="slide_content">
+            <div class="slide">
+                <div class="mySlides fade">
+                    <img class=php_prod src="image 40.png">
+                </div>
+                <div class="mySlides fade">
+                    <img class=php_prod src="image 41.png">
+                </div>
+                <div class="mySlides fade">
+                    <img class=php_prod src="image 42.png">
+                </div>
+            </div>
+            <div class="switch">
+                <span class="dot" onclick="currentSlide(1)"><img class=php_dot src="image 40.png"></span> 
+                <span class="dot" onclick="currentSlide(2)"><img class=php_dot src="image 41.png"></span> 
+                <span class="dot" onclick="currentSlide(3)"><img class=php_dot src="image 42.png"></span> 
+            </div>
+        </div>
+        <div class="price">
+        <h1>Apple iPhone 14 Pro<br> 128GB Deep Purple<br> (темно-фиолетовый)</h1>
+        <p>Категория: iPhone 14 Pro<br>
+        Состояние: Новый</p>
+        <p class=priced><strong>106 990₽</strong></p>
+        <p>Цена в федеральных сетях: <strong><s>128 388₽</s></strong></p>
+        </div>
+       <div class="txt">
+            <p>О об этом iPhone<br>
+            <br>
+            Смартфон iPhone 14 Pro оборудован OLED<br>
+            -дисплеем диагональю 6,1 дюйма с<br>
+            адаптивной частотой обновления до 120 Гц.<br>
+            В этой модели установлены три основные<br>
+            камеры (48 Мп, 12 Мп и 12 Мп) и фронтальный<br>
+            модуль (7 Мп), можно записывать видео в<br>
+            качестве 4К с частотой 30 кадров в секунду. <br>
+            Основной широкоугольный объектив снабжен<br>
+            сапфировым защитным стеклом.<br>
+            Питание обеспечивает литий-ионный аккумулятор<br>
+            с поддержкой беспроводной зарядки MagSafe<br>
+            и стандарта Qi. Ресурса хватает на 75 часов вос-<br>
+            произведения аудиофайлов и 23 часа просмотра<br>
+            видео.В комплекте есть кабель с коннекторами<br>
+            Lightning и USB Type-C. Смартфон оборудован<br>
+            шестиядерным процессором A16 Bionic.<br>
+            Корпус выполнен из нержавеющей стали,<br>
+            обладает классом влагозащиты IP68. Устройство<br>
+            не боится погружения на глубину до 6 м. Дисплей<br> оснащен противоударным стеклом Ceramic Shield.</p>
+       </div>
+       <button class="card__add">В корзину</button>
+    </div>
+    <script>
+      var slideIndex = 1;
+      showSlides(slideIndex);
+      
+      function plusSlides(n) {
+        showSlides(slideIndex += n);
+      }
+      
+      function currentSlide(n) {
+        showSlides(slideIndex = n);
+      }
+      
+      function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {slideIndex = 1}    
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";  
+        dots[slideIndex-1].className += " active";
+      }
+    </script>				
+    </body>
+</html>
