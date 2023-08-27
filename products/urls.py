@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import ProductsListView, Search, basket_add, BasketListView, basket_plus, basket_minus, basket_remove
-
+from .views import productView
 from django.contrib.auth.decorators import login_required
 
 
@@ -16,4 +16,5 @@ urlpatterns = [
     path("basket/plus/<int:product_id>/", basket_plus, name='basket_plus'),
     path("basket/minus/<int:product_id>/", basket_minus, name='basket_minus'),
     path("basket/remove/<int:basket_id>/", basket_remove, name='basket_remove'),
+    path("product/<int:product_id>/", productView, name='product'),
 ]

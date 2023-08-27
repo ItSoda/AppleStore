@@ -10,6 +10,15 @@
 <div class="form_auth_block">
   <div class="form_auth_block_content">
     <p class="form_auth_block_head_text">Авторизация</p>
+    <!-- {% if form.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert"
+        style="margin-top: 50px;">
+        {{ form.errors }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %} -->
     <form class="form_auth_style" action="{% url 'users:login' %}" method="post">
       {% csrf_token %}
 

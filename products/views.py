@@ -1,10 +1,12 @@
+from typing import Any
+from django.db import models
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from common.views import TitleMixin
-
+from django.views.generic.detail import DetailView
 from .models import Images, Product, ProductCategory, Basket
 
 
@@ -106,3 +108,21 @@ def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+def productView(request, product_id):
+    product = Product.objects.get(id=product_id)
+    images = Images.objects.filter(products_id=product_id)
+    im1 = Images.objects.get(products_id=product_id, title='image_first')
+    im2 = Images.objects.get(products_id=product_id, title='image_second')
+    im3 = Images.objects.get(products_id=product_id, title='image_last')
+    title = 'AppleRedStore'
+
+    context = {
+        'title': title,
+        'products': product,
+        'images': images,
+        'im1': im1,
+        'im2': im2,
+        'im3': im3,
+    }
+    return render(request, 'products/product.html', context)

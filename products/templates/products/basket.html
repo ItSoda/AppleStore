@@ -35,12 +35,16 @@
               <a href="{% url 'products:basket_remove' basket.id %}">
                 <div class="image">
                         <img class=box src="{% static 'red/img/basket_bank.png' %}"/>
+                  </a>
+                  <a href="{% url 'products:product' basket.product.id %}">
                     <img class=photo src="{{ basket.product.image.url }}" alt="" />
+                  </a>
                 </div>
-              </a>
                 <div class="description">
-                    <span>{{ basket.product.name }}</span>
+                  <a href="{% url 'products:product' basket.product.id %}">
+                    <span>{{ basket.product.name }} {{basket.product.gb}}</span>
                     <span>{{ basket.product.color }}</span>
+                  </a>
                 </div>
             <div class="quantity">
               <a href="{% url 'products:basket_minus' basket.product.id %}">
@@ -60,8 +64,11 @@
       {% endfor %}
       <form action="{% url 'orders:order_create' %}" target="_blank">   
         <button class="card__add">заказать</button>
+      </form>
 {% else %}
-<div class="txt_1">
-  <span>Корзина пустая, чтобы добавить товары перейдите в каталог</span>
-</div>
+{% include 'products/basket_empty.html' %}
 {% endif %}
+</div>
+  </div>
+</body>
+</html>

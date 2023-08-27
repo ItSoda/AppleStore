@@ -21,6 +21,7 @@ class ProductCategory(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField()
+    gb = models.CharField(default=128, max_length=128)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     color = models.CharField(max_length=128, blank=True, null=True)
     quantity = models.PositiveBigIntegerField(default=0)
@@ -34,7 +35,7 @@ class Product(models.Model):
         verbose_name_plural = 'Продукты'
 
     def __str__(self):
-        return f"Продукт: {self.name} | Категория: {self.category.name} | {self.price}"
+        return f"Продукт: {self.name} {self.gb}| Категория: {self.category.name} | {self.price}"
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if not self.stripe_product_price_id:
@@ -61,12 +62,11 @@ class Images(models.Model):
     products_id = models.ForeignKey(to=Product, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'фотогрфия'
+        verbose_name = 'фотография'
         verbose_name_plural = 'фотографии'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
-
 
 class BasketQuerySet(models.QuerySet):
     def stripe_products(self):
@@ -97,6 +97,7 @@ class Basket(models.Model):
         basket_item = {
             'name': self.product.name,
             'color': self.product.color,
+            'gb': self.product.gb,
             'quantity': self.quantity,
             'price': float(self.product.price),
             'sum': float(self.sum()),

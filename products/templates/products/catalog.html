@@ -16,7 +16,7 @@
     <div class="carde">
     <div class="card">
             <div class="card__top">
-                <a href="#" class="card__image"><img src="{{ product.image.url }}" alt="Apple IPhone 14 PRO Max Gold"/></a>
+                <a href="{% url 'products:product' product.id %}" class="card__image"><img src="{{ product.image.url }}" alt="Apple IPhone 14 PRO Max Gold"/></a>
                 <div class="card__label">{{ product.discount|intcomma }}%</div>
             </div>
             <div class="card__bottom">
@@ -24,8 +24,8 @@
                     <div class="card__price card__price--discount">{{ product.discount_price|intcomma }}</div>
                     <div class="card__price card__price--common">{{ product.price|intcomma }}</div>
                 </div>
-                <a href="#" class="card__title">
-                    {{ product.name }}
+                <a href="{% url 'products:product' product.id %}" class="card__title">
+                    {{ product.name }} {{product.gb}}
                     {{ product.color }}
                 </a>
                 <a href="{% url 'products:basket_add' product.id %}">
