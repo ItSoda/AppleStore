@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    volumes:
+      - ~/.pg/pg_data/soda:/var/lib/postgresql/data
+    env_file:
+      - .env
+  apple_project:
+    image: django_project:latest
+    container_name: apple_project
+    depends_on:
+      - postgres
+    volumes:
+      - static_volume:/soda/static
+      - media_volume:/soda/media
+    env_file:
+      - .env
+    command: >
+      bash -c "./manage.py collectstatic --noinput && ./manage.py migrate  && gunicorn -b 0.0.0.0:8000 AppleStore.wsgi:application"
+  nginx:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./docker/nginx/
+    container_name: soda_nginx
+    image: soda_nginx
+    volumes:
+      - static_volume:/soda/static
+      - media_volume:/soda/media
+    depends_on:
+      - apple_project
+    ports:
+      - "${NGINX_EXTERNAL_PORT}:80"
+
+volumes:
+  static_volume:
+  media_volume:
+

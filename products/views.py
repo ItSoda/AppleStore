@@ -1,13 +1,10 @@
-from typing import Any
-from django.db import models
-from django.views.generic import TemplateView
-from django.views.generic.list import ListView
-from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import HttpResponseRedirect, render
+from django.views.generic.list import ListView
+
 from common.views import TitleMixin
-from django.views.generic.detail import DetailView
-from .models import Images, Product, ProductCategory, Basket
+
+from .models import Basket, Images, Product, ProductCategory
 
 
 class ProductsListView(TitleMixin, ListView):
@@ -47,8 +44,12 @@ class Search(ListView):
     template_name = 'products/catalog.html'
 
     def get_queryset(self):
-        return Product.objects.filter(name__icontains=self.request.GET.get("q"))
-
+        search_query = self.request.GET.get('q', '')
+        if search_query:
+            return Product.objects.filter(name__iregex=search_query)
+        else:
+            return Product.objects.all()
+        
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)
         context["q"] = self.request.GET.get("q")
@@ -91,6 +92,7 @@ def basket_plus(request, product_id):
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
+
 @login_required
 def basket_minus(request, product_id):
     product = Product.objects.get(id=product_id)
@@ -103,11 +105,13 @@ def basket_minus(request, product_id):
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
+
 @login_required
 def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 
 def productView(request, product_id):
     product = Product.objects.get(id=product_id)

@@ -25,8 +25,7 @@
                     <div class="card__price card__price--common">{{ product.price|intcomma }}</div>
                 </div>
                 <a href="{% url 'products:product' product.id %}" class="card__title">
-                    {{ product.name }} {{product.gb}}
-                    {{ product.color }}
+                    {{ product.name }}
                 </a>
                 <a href="{% url 'products:basket_add' product.id %}">
                     <button class="card__add">В корзину</button>

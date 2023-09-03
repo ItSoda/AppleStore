@@ -1,3 +1,3 @@
 AppleStore project --- development stage
 
-install config 'pip install -r requirements.txt'
+This is a pet project

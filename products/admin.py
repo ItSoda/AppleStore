@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from products.models import Images, Product, ProductCategory, Basket
+from products.models import Basket, Images, Product, ProductCategory
 
 admin.site.register(ProductCategory)
 admin.site.register(Images)

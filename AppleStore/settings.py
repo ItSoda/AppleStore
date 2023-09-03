@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -84,7 +85,7 @@ WSGI_APPLICATION = "AppleStore.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "django.db.backends.mysql", # mysql \postgresql for docker 
         "NAME": "applestore",
         "USER": "root",
         "PASSWORD": "nik140406",
@@ -93,13 +94,13 @@ DATABASES = {
     }
 }
 
-# debug toolbar 
+# debug toolbar
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-# Redis 
+# Redis
 
 CACHES = {
     "default": {
@@ -151,6 +152,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+# STATIC_ROOT = 'static'
 
 # MEDIA
 MEDIA_URL = '/media/'
