@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import path
 
-from .views import (BasketListView, ProductsListView, Search, basket_add,
+from .views import (IndexListView, BasketListView, ProductsListView, Search, basket_add,
                     basket_minus, basket_plus, basket_remove, productView)
 
 app_name = 'products'

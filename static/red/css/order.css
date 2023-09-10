@@ -1,9 +1,13 @@
+.contr{
+  min-width: 480;
+  max-width: 1440;
+}
 .head{
     width: 100%;
     
 }
 .head_wrap{
-    margin: 0px 95px 1px 95px;
+    margin: 0% 6.5% 0.069% 6.5%;
     border-radius: 0px 0px 35px 34px;
     text-align: center;
     box-shadow: 0px 0px 25px 0px rgb(0 0 0 / 10%);
@@ -59,7 +63,7 @@ nav {
   
 }
 .one ul {
-  padding: 1em 0;
+  padding: 1.1% 0px 1.1% 0px;
   background: #EA2727;
   border-radius: 10px;
 }
@@ -68,7 +72,6 @@ nav {
   color: #ffffff;
   border-radius: 10px;
 }
-.one a:hover {background: #EA2727}
 .one li {
   display: inline;
 }
@@ -127,4 +130,78 @@ a {
 }
 h1,b,p{
     font-family:sans-serif ;
+}
+@media screen and (max-width: 887px) {
+  ul{
+    width: 400;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+  }
+  a{
+    font-size: 14;
+  }
+  nav{
+    width: 450;
+  }
+  h1{
+    font-size: 25;
+  }
+  b{
+    font-size: 14;
+  }
+}
+@media screen and (max-width: 675px) {
+  nav{
+    width: 400;
+  }
+  b{
+    font-size: 13;
+  }
+  h1{
+    font-size: 22;
+  }
+}
+@media screen and (max-width: 510px) {
+  
+  .head_wrap{
+    width: 420;
+  }
+  ul{
+  padding:0px 0px 0px 0px; 
+  }
+  b{
+    font-size: 13;
+  }
+  h1{
+    font-size: 22;
+  }
+  a{
+    font-size: 14;
+  }
+  .container{
+    padding: 2;
+  }
+  .one a:hover {background: none}
+}
+@media screen and (max-width: 480px) {
+  
+  .head_wrap{
+    width: 420;
+  }
+  ul{
+  padding:0px 0px 0px 0px; 
+  }
+  b{
+    font-size: 13;
+  }
+  h1{
+    font-size: 22;
+  }
+  a{
+    font-size: 14;
+  }
+  .container{
+    padding: 2;
+  }
+  .one a:hover {background: none}
 }

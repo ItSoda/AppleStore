@@ -10,6 +10,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 class ProductCategory(models.Model):
     name = models.CharField(max_length=128, unique=True)
     description = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to='all_images', null=True, blank=True)
 
     class Meta:
         verbose_name = 'категория'
@@ -29,7 +30,7 @@ class Product(models.Model):
     discount = models.IntegerField(default=0)
     image = models.ImageField(upload_to='product_images', null=True, blank=True)
     stripe_product_price_id = models.CharField(max_length=128, null=True, blank=True)
-    category = models.ForeignKey(to=ProductCategory, on_delete=models.CASCADE)
+    category = models.ManyToManyField(ProductCategory)
 
     class Meta:
         verbose_name = 'Продукт'

@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect, render
 from django.views.generic.list import ListView
-
+from django.urls import reverse
 from common.views import TitleMixin
 
 from .models import Basket, Images, Product, ProductCategory
@@ -15,12 +15,7 @@ class ProductsListView(TitleMixin, ListView):
     def get_queryset(self):
         queryset = super(ProductsListView, self).get_queryset()
         category_id = self.kwargs.get('category_id')
-        return queryset.filter(category_id=category_id) if category_id else queryset
-
-    def get_context_data(self, **kwargs):
-        context = super(ProductsListView, self).get_context_data(**kwargs)
-        context['categories'] = ProductCategory.objects.all()
-        return context
+        return queryset.filter(category=category_id) if category_id else queryset
 
 
 class IndexListView(TitleMixin, ListView):
@@ -28,14 +23,13 @@ class IndexListView(TitleMixin, ListView):
     template_name = 'products/index.html'
     title = 'AppleRedStore - Home'
 
-    def get_queryset(self):
-        queryset = super(IndexListView, self).get_queryset()
-        category_id = self.kwargs.get('category_id')
-        return queryset.filter(category_id=category_id) if category_id else queryset
-
     def get_context_data(self, **kwargs):
         context = super(IndexListView, self).get_context_data(**kwargs)
-        context['categories'] = ProductCategory.objects.all()
+        context['categories_iphone'] = ProductCategory.objects.filter(name__startswith="iPhone ").order_by('id')
+        context['categories_pods'] = ProductCategory.objects.filter(name__startswith="Apple AirPods ").order_by('id')
+        context['categories_watch'] = ProductCategory.objects.filter(name__startswith="Apple Watch ").order_by('id')
+        context['categories_ipad'] = ProductCategory.objects.filter(name__startswith="iPad ").order_by('id')
+        context['categories_mac'] = ProductCategory.objects.filter(name__startswith="Mac").order_by('id') | ProductCategory.objects.filter(name__startswith="iMac ").order_by('id')
         return context
 
 

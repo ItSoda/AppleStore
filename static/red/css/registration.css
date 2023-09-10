@@ -1,6 +1,7 @@
 * {box-sizing: border-box}
 .container {
   padding: 16px;
+  min-width: 480;
 }
 input[type=text], input[type=password] {
   width: 100%;
@@ -39,9 +40,28 @@ a {
   color: dodgerblue;
 }
 .signin {
-  background-color: #f1f1f1;
+  background-color: #ffffff;
   text-align: center;
 }
 h1,b,p{
     font-family:sans-serif ;
+}
+@media screen and (max-width: 494px) {
+  .container{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    
+  }
+  h1{
+    font-size: 26;
+  }
+  p{
+    font-size: 14;
+  }
+  b{
+    font-size: 15;
+  } 
 }

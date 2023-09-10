@@ -1,6 +1,6 @@
 .form_auth_block{
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     background-color: #ffffff;
     background-size: cover;
@@ -37,6 +37,7 @@
   border-radius: 10px;  
   border:none;
   outline: none;
+  border: solid 1px #c7c7c7;
 }
 input:focus {
   color: #000000;
@@ -60,4 +61,26 @@ input:focus {
 :-ms-input-placeholder      {color:#3f3f44; padding-left: 10px;}
 h1,b,p,label{
     font-family:sans-serif ;
+}
+@media screen and (max-width: 494px) {
+  .form_auth_block{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+  } 
+}
+@media screen and (max-width: 480px) {
+  .form_auth_block{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+  }
 }

@@ -3,26 +3,30 @@ body{
     padding: 0;
     border: 0;
 }
+.contr{
+  min-width: 480;
+  max-width: 1440;
+}
 .head{
-    width: 100%;
-    
+      width: 100%;
+      
 }
 .head_wrap{
-    margin: 0px 95px 1px 95px;
-    border-radius: 0px 0px 35px 34px;
-    text-align: center;
-    box-shadow: 0px 0px 25px 0px rgb(0 0 0 / 10%);
-    background-color: #EA2727;
+      margin: 0% 6.5% 0.069% 6.5%;
+      border-radius: 0px 0px 35px 34px;
+      text-align: center;
+      box-shadow: 0px 0px 25px 0px rgb(0 0 0 / 10%);
+      background-color: #EA2727;
 }
 .rh-flex-center-align {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
 }
 .txt_1{
-    
-    text-align: center;
-    padding: 30px 30px 0px 30px
+      
+      text-align: center;
+      padding: 30px 30px 0px 30px
 }
 .first_cont{
     margin:0px 80px 1px 80px;
@@ -54,7 +58,7 @@ nav {
   
 }
 .one ul {
-  padding: 1em 0;
+  
   background: #EA2727;
   border-radius: 10px;
 }
@@ -143,7 +147,10 @@ nav {
     from {opacity: .4} 
     to {opacity: 1}
 }
-
+.inline-prp{
+  margin:0% 5.5% 0.69% 5.5%;
+  min-width: 479;
+}
 .php_dot{
     width: 80;
     opacity:0.4;
@@ -160,9 +167,7 @@ nav {
 }
 
 
-.mySlides{
-    width: 320;
-}
+
 
 div{
     display: block;
@@ -174,17 +179,23 @@ h1{
 .text_content{
     float: left;
 }
-.slide{
-    width: 320;
-}
+
 .slide_content{
-    float: left;
-    margin-left: 95;
-    margin-top: 20;
+  float: left;
+    margin-left: 11.4%;
+    margin-top: 1.5%;
+    display: inline-block;
 }
 .priced{
     font-family: sans-serif;
     font-size: 40;
+    display: inline-block;
+    margin: 1.43% 0px 0px 9.29%;
+    padding: 0.7%;
+}
+.price{
+  font-family: sans-serif;
+  font-size: 40;
 }
 .txt{
   margin: 60px 0px 1px 95px;
@@ -196,7 +207,7 @@ h1{
 .card__add {
   display: block;
   font-weight: 400;
-  width: 500;
+  width: 50%;
   font-size: 17px;
   color: #ff0000;
   padding: 10px;
@@ -207,9 +218,197 @@ h1{
   transition: 0.2s;
   margin: 20px 0px 1px 95px;
 }
-
+.pprice{ 
+  font-size: 16;
+}
 .card__add:hover {
   border: 1px solid #f02424;
   background-color: #f02424;
   color: #fff;
+}
+@media screen and (max-width: 1062px) {
+  .priced{
+    margin-left: 20;
+  }
+  p{
+    font-size: 14;
+  }
+  .txt{
+    width: 352;
+  }
+}
+@media screen and (max-width: 974px) {
+  .php_prod{
+    width: 250;
+  }
+  .priced{
+    margin-left: 5;
+  }
+  .slide_content{
+    margin-right: 0;
+  }
+  h1,strong{
+    font-size:22 ;
+  }
+  .d7{
+    display: none;
+  }
+}
+@media screen and (max-width: 887px) {
+  ul{
+    width: 400;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+  }
+  a{
+    font-size: 14;
+  }
+  nav{
+    width: 450;
+  }
+}
+@media screen and (max-width: 722px) {
+  .php_prod{
+    width: 220;
+  }
+  .priced{
+    margin-left: 5;
+  }
+  .slide_content{
+    margin-right: 0;
+  }
+  h1,strong{
+    font-size:16 ;
+  }
+  p{
+    font-size: 12;
+  }
+  .switch{
+    width: 200;
+  }
+  .php_dot{
+    width: 62;
+  }
+  .txt{
+    width: 295;
+  }
+}
+@media screen and (max-width: 675px) {
+  nav{
+    width: 400;
+  }
+}
+@media screen and (max-width: 651px) {
+  .php_prod{
+    width: 180;
+  }
+  .priced{
+    margin-left: 5;
+  }
+  .slide_content{
+    margin-right: 0;
+  }
+  h1,strong{
+    font-size:14 ;
+  }
+  p{
+    font-size: 12;
+  }
+  .switch{
+    width: 194;
+  }
+  .php_dot{
+    width: 56;
+  }
+  .txt{
+    width: 295;
+  }
+  .pprice{
+    font-size: 14;
+  }
+}
+@media screen and (max-width: 573px) {
+  .php_prod{
+    width: 160;
+  }
+  .priced{
+    margin-left: 5;
+  }
+  .slide_content{
+    margin-right: 0;
+  }
+  h1,strong{
+    font-size:14 ;
+  }
+  p{
+    font-size: 11;
+  }
+  .switch{
+    width: 166;
+  }
+  .php_dot{
+    width: 50;
+  }
+  .txt{
+    width: 295;
+    margin-left: 40;
+  }
+  .pprice{
+    font-size: 11;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  
+  .head_wrap{
+    width: 420;
+  }
+  ul{
+  padding:0px 0px 0px 0px; 
+  }
+  .one a:hover {background: none}
+  a{
+    font-size: 14;
+  }
+  .one a:hover {background: none}
+}
+@media screen and (max-width: 480px) {
+  .head_wrap{
+    width: 420;
+  }
+  ul{
+  padding:0px 0px 0px 0px; 
+  }
+  .one a:hover {background: none}
+  a{
+    font-size: 14;
+  }
+  .php_prod{
+    width: 160;
+  }
+  .priced{
+    margin-left: 5;
+  }
+  .slide_content{
+    margin-right: 0;
+  }
+  h1,strong{
+    font-size:14 ;
+  }
+  p{
+    font-size: 11;
+  }
+  .switch{
+    width: 166;
+  }
+  .php_dot{
+    width: 50;
+  }
+  .txt{
+    width: 295;
+    margin-left: 40;
+  }
+  .pprice{
+    font-size: 11;
+  }
 }
