@@ -6,6 +6,8 @@ SHELL ["/bin/bash", "-c"]
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+EXPOSE 8000
+
 RUN pip install --upgrade pip
 
 RUN apt update && apt -qy install gcc libjpeg-dev libxslt-dev \
@@ -23,4 +25,4 @@ RUN pip install -r requirements.txt
 
 USER soda
 
-CMD ["gunicorn","-b","0.0.0.0:8001","AppleStore.wsgi:application"]
+CMD ["gunicorn","-b","0.0.0.0:8000","AppleStore.wsgi:application"]

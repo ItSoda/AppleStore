@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-16&_op^g&h-_6)iqije7lnr8p+wx-dep0y2^6v^hv-=f7dvgd5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST'), ]
 
 DOMAIN_NAME = 'http://127.0.0.1:8000'
 # Application definition
@@ -86,12 +86,12 @@ WSGI_APPLICATION = "AppleStore.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql", # mysql \postgresql for docker 
-        "NAME": "applestore",
-        "USER": "root",
-        "PASSWORD": "nik140406",
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
+        "ENGINE": "django.db.backends.postgresql", # mysql \postgresql for docker 
+        "NAME": os.getenv('POSTGRES_HOST', 'localhost'),
+        "USER": os.getenv('POSTGRES_PORT', 5432),
+        "PASSWORD": os.getenv('POSTGRES_USER', 'itsoda'),
+        "HOST": os.getenv('POSTGRES_PASSWORD'),
+        "PORT": os.getenv('POSTGRES_DB', 'applestore_prod'),
     }
 }
 
@@ -189,3 +189,10 @@ EMAIL_USE_SSL = True
 STRIPE_PUBLIC_KEY = 'pk_test_51NgOL7FafsvnOu41dCDWTExxzzMuALtmtCwys5ceOzb1r3vSjBMndHJVe7wCIQ9OJEMp6YbuAUIcKKxaGwiMM8Fx00WsHEvTDM'
 STRIPE_SECRET_KEY = 'sk_test_51NgOL7FafsvnOu41SKYQzdawtX48KY6ay6Pvgp5WFK02OinzBAqcovT7EG2bzansB1vw9THozKrgeEHOFUU9pq4m00oPmj9Ixw'
 WEBHOOK_SECRET_KEY = 'whsec_e115028f6be4f51c77bb01c925d510ba20e4361cdd08533230aa8a6cb3a3b343'
+
+
+CSRF_TRUSTED_ORIGINS = []
+if scrf_subdomain := os.getenv("SCRF_SUBDOMAIN"):
+    CSRF_TRUSTED_ORIGINS += [f'http://{scrf_subdomain}', f'https://{scrf_subdomain}']
+
+
