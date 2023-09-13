@@ -21,8 +21,6 @@ RUN mkdir /soda/static && mkdir /soda/media && chown -R soda:soda /soda && chmod
 
 COPY --chown=soda:soda . .
 
-RUN pip install -r requirements.txt
-
 USER soda
 
 CMD ["gunicorn","-b","0.0.0.0:8000","AppleStore.wsgi:application"]
