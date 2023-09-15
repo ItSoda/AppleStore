@@ -9,26 +9,51 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import environ
 
 from pathlib import Path
 import os
 
+env = environ.Env(
+    # set casting, default value
+    SECRET_KEY=(str),
+    DEBUG=(bool),
+    DOMAIN_NAME=(str),
+
+    DATABASES_NAME=(str),
+    DATABASES_USER=(str),
+    DATABASES_PASSWORD=(str),
+    DATABASES_HOST=(str),
+    DATABASES_PORT=(int),
+
+    EMAIL_HOST=(str),
+    EMAIL_PORT=(int),
+    EMAIL_HOST_USER=(str),
+    EMAIL_HOST_PASSWORD=(str),
+    EMAIL_USE_SSL=(bool),
+
+    STRIPE_PUBLIC_KEY=(str),
+    STRIPE_SECRET_KEY=(str),
+    WEBHOOK_SECRET_KEY=(str),
+)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+environ.Env.read_env(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-16&_op^g&h-_6)iqije7lnr8p+wx-dep0y2^6v^hv-=f7dvgd5"
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST'), ]
+ALLOWED_HOSTS = ['*']
 
-DOMAIN_NAME = 'http://127.0.0.1:8000'
+DOMAIN_NAME = env('DOMAIN_NAME')
 # Application definition
 
 INSTALLED_APPS = [
@@ -86,12 +111,12 @@ WSGI_APPLICATION = "AppleStore.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql", # mysql \postgresql for docker 
-        "NAME": os.getenv('POSTGRES_HOST', 'localhost'),
-        "USER": os.getenv('POSTGRES_PORT', 5432),
-        "PASSWORD": os.getenv('POSTGRES_USER', 'itsoda'),
-        "HOST": os.getenv('POSTGRES_PASSWORD'),
-        "PORT": os.getenv('POSTGRES_DB', 'applestore_prod'),
+        "ENGINE": "django.db.backends.postgresql", # mysql \postgresql for prod 
+        "NAME": env('DATABASES_NAME'),
+        "USER": env('DATABASES_USER'),
+        "PASSWORD": env('DATABASES_PASSWORD'),
+        "HOST": env('DATABASES_HOST'),
+        "PORT": env('DATABASES_PORT'),
     }
 }
 
@@ -115,9 +140,7 @@ CACHES = {
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -154,10 +177,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'static'
-# ]
-STATIC_ROOT = 'static'
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static'
+    ]
+else:
+    STATIC_ROOT = 'static'
 
 # MEDIA
 MEDIA_URL = '/media/'
@@ -175,24 +200,22 @@ LOGIN_REDIRECT_URL = '/products/catalog/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Email
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_HOST = env('EMAIL_HOST')
+    EMAIL_PORT = env('EMAIL_PORT')
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+    EMAIL_USE_SSL = env('EMAIL_USE_SSL')
 
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'AppleRedStore@yandex.ru'
-EMAIL_HOST_PASSWORD = 'lefwxoyezvzlcmuh'
-EMAIL_USE_SSL = True
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # stripe
 
-STRIPE_PUBLIC_KEY = 'pk_test_51NgOL7FafsvnOu41dCDWTExxzzMuALtmtCwys5ceOzb1r3vSjBMndHJVe7wCIQ9OJEMp6YbuAUIcKKxaGwiMM8Fx00WsHEvTDM'
-STRIPE_SECRET_KEY = 'sk_test_51NgOL7FafsvnOu41SKYQzdawtX48KY6ay6Pvgp5WFK02OinzBAqcovT7EG2bzansB1vw9THozKrgeEHOFUU9pq4m00oPmj9Ixw'
-WEBHOOK_SECRET_KEY = 'whsec_e115028f6be4f51c77bb01c925d510ba20e4361cdd08533230aa8a6cb3a3b343'
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+WEBHOOK_SECRET_KEY = env('WEBHOOK_SECRET_KEY')
 
-
-CSRF_TRUSTED_ORIGINS = []
-if scrf_subdomain := os.getenv("SCRF_SUBDOMAIN"):
-    CSRF_TRUSTED_ORIGINS += [f'http://{scrf_subdomain}', f'https://{scrf_subdomain}']
 
 

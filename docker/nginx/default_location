@@ -1,7 +1,0 @@
-location /static/ {
-    alias /soda/static/;
-}
-
-location /media/ {
-    alias /soda/media/;
-}
