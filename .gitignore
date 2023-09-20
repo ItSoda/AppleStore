@@ -62,8 +62,9 @@ db.sqlite3
 db.sqlite3-journal
 .vscode
 
-
-
+# Library:
+requirements.txt
+.flake8
 
 
 

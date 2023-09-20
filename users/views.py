@@ -3,9 +3,11 @@ from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
-
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, \
+                                                        PasswordResetConfirmView, PasswordResetCompleteView
 from common.views import TitleMixin
-
+from django.core.mail import send_mail
+from django.conf import settings
 from .forms import UserLoginForm, UserRegistrationForm
 from .models import EmailVerification, User
 
@@ -36,3 +38,21 @@ class EmailVerificationView(TitleMixin, TemplateView):
             return super(EmailVerificationView, self).get(request, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse('index'))
+        
+
+class RedPasswordResetView(PasswordResetView):
+    template_name = 'users/password_reset.html'
+    success_url = reverse_lazy("users:password_reset_done")
+    # Идет отправка почты
+    email_template_name = "users/password_reset_email.html"
+
+
+class RedPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'users/password_reset_done.html'
+
+class RedPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'users/password_reset_confirm.html'
+    success_url = reverse_lazy('users:password_reset_complete')
+
+class RedPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'users/password_reset_complete.html'

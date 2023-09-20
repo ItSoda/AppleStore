@@ -29,13 +29,14 @@
                 <li><a href="{% url 'products:catalog' %}">Каталог</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'products:basket' %}">Корзина</a></li>
-                {% if user.is_stuff or user.is_superuser %}
-                <li><a href="{% url 'admin:index' %}">stuff</a></li>
-                {% endif %}
+                    {% if user.is_stuff or user.is_superuser %}
+                    <li><a href="{% url 'admin:index' %}">stuff</a></li>
+                    {% endif %}
                 <li><a href="{% url 'users:logout' %}">Выйти</a></li>
                 {% else %}
                 <li><a href="{% url 'users:login' %}">Войти</a></li>
                 {% endif %}
+                <li><a href="https://web.telegram.org/a/#5798143602">Наш Телеграм</a></li>
             </ul>
         </nav>
     </div>

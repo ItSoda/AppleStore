@@ -7,8 +7,6 @@ from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 from .managers import CustomUserManager
-
-
 class User(AbstractUser):
     username = models.CharField(
         _("username"),
@@ -62,3 +60,4 @@ class EmailVerification(models.Model):
 
     def is_expired(self):
         return True if now() >= self.expiration else False
+    

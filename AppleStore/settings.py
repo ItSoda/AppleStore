@@ -31,6 +31,7 @@ env = environ.Env(
     EMAIL_HOST_USER=(str),
     EMAIL_HOST_PASSWORD=(str),
     EMAIL_USE_SSL=(bool),
+    DEFAULT_FROM_EMAIL=(str),
 
     STRIPE_PUBLIC_KEY=(str),
     STRIPE_SECRET_KEY=(str),
@@ -108,17 +109,28 @@ WSGI_APPLICATION = "AppleStore.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
+if DEBUG:
+    DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql", # mysql \postgresql for prod 
-        "NAME": env('DATABASES_NAME'),
-        "USER": env('DATABASES_USER'),
-        "PASSWORD": env('DATABASES_PASSWORD'),
-        "HOST": env('DATABASES_HOST'),
-        "PORT": env('DATABASES_PORT'),
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": 'AppleStore',
+        "USER": 'root',
+        "PASSWORD": 'nik140406',
+        "HOST": 'localhost',
+        "PORT": 3306,
     }
 }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env('DATABASES_NAME'),
+            "USER": env('DATABASES_USER'),
+            "PASSWORD": env('DATABASES_PASSWORD'),
+            "HOST": env('DATABASES_HOST'),
+            "PORT": env('DATABASES_PORT'),
+        }
+    }
 
 # debug toolbar
 
@@ -200,15 +212,15 @@ LOGIN_REDIRECT_URL = '/products/catalog/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Email
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_HOST = env('EMAIL_HOST')
-    EMAIL_PORT = env('EMAIL_PORT')
-    EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-    EMAIL_USE_SSL = env('EMAIL_USE_SSL')
+# if DEBUG:
+#     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = env('EMAIL_USE_SSL')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 
 # stripe

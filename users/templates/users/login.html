@@ -28,6 +28,7 @@
       
       <label for="{{ form.password.id_for_label }}">Введите Ваш пароль</label>
       {{ form.password }}
+      <a href="{% url 'users:password_reset' %}"><p>Забыли пароль?</p></a>
       <button class="form_auth_button" type="submit" name="form_auth_submit">Войти</button>
     </form>
     <div class="container signin">
