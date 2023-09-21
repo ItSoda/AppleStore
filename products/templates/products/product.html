@@ -19,7 +19,7 @@
                     <img class=php_prod src="{{ image.img.url }}">
                 </div>
             </div>
-      {% endfor %}
+        {% endfor %}
             <div class="switch">
                 <span class="dot" onclick="currentSlide(1)"><img class=php_dot src="{{ im1.img.url }}"></span>
                 <span class="dot" onclick="currentSlide(2)"><img class=php_dot src="{{ im2.img.url }}"></span> 
@@ -28,7 +28,7 @@
         </div>
         <div class="price">
         <h1>{{ products.name }}<br>{{ products.color }}<br></h1>
-        <p>Категория: {{ products.category.name }} {{products.gb}}<br>
+        <p>Категория:{% for ct in products.category.all %} {{ ct.name }} {% endfor %} {{products.gb}}<br>
         Состояние: Новый</p>
         <p class=priced><strong>{{ products.discount_price|intcomma }} ₽</strong></p>
         <p>Цена в федеральных сетях: <strong><s>{{ products.price|intcomma }} ₽</s></strong></p>

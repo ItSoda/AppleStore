@@ -12,6 +12,7 @@ class ProductAdmin(admin.ModelAdmin):
     fields = ('name', 'color', 'gb', 'description', ('price', 'quantity'), 'discount', 'image', 'stripe_product_price_id', 'category')
     search_fields = ('name', )
     ordering = ('name', )
+    filter_horizontal = ['category', ]
 
 
 class BasketAdmin(admin.TabularInline):

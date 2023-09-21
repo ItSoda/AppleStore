@@ -37,7 +37,7 @@ class Product(models.Model):
         verbose_name_plural = 'Продукты'
 
     def __str__(self):
-        return f"Продукт: {self.name} {self.gb}| Категория: {self.category.name} | {self.price}"
+        return f"Продукт: {self.name} {self.gb}| Категория: {self.category.all()[0]} | {self.price}"
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if not self.stripe_product_price_id:

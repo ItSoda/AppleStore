@@ -9,10 +9,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-import environ
-
-from pathlib import Path
 import os
+from pathlib import Path
+
+import environ
 
 env = environ.Env(
     # set casting, default value
@@ -55,6 +55,7 @@ DEBUG = env('DEBUG')
 ALLOWED_HOSTS = ['*']
 
 DOMAIN_NAME = env('DOMAIN_NAME')
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -109,6 +110,7 @@ WSGI_APPLICATION = "AppleStore.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
 if DEBUG:
     DATABASES = {
     "default": {
@@ -206,12 +208,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # User
+
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/products/catalog/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Email
+
 # if DEBUG:
 #     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

@@ -1,9 +1,11 @@
 from __future__ import absolute_import, unicode_literals
+
 import uuid
 from datetime import timedelta
 
 from celery import shared_task
 from django.utils.timezone import now
+
 from users.models import EmailVerification, User
 
 

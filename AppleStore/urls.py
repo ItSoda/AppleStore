@@ -22,7 +22,6 @@ from django.urls import include, path
 from orders.views import stripe_webhook_view
 from products.views import IndexListView
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", IndexListView.as_view(), name='index'),

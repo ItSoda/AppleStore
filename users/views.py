@@ -1,13 +1,16 @@
-from django.contrib.auth.views import LoginView
+from django.conf import settings
+from django.contrib.auth.views import (LoginView, PasswordResetCompleteView,
+                                       PasswordResetConfirmView,
+                                       PasswordResetDoneView,
+                                       PasswordResetView)
+from django.core.mail import send_mail
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, \
-                                                        PasswordResetConfirmView, PasswordResetCompleteView
+
 from common.views import TitleMixin
-from django.core.mail import send_mail
-from django.conf import settings
+
 from .forms import UserLoginForm, UserRegistrationForm
 from .models import EmailVerification, User
 

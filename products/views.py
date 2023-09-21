@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect, render
-from django.views.generic.list import ListView
 from django.urls import reverse
+from django.views.generic.list import ListView
+
 from common.views import TitleMixin
 
 from .models import Basket, Images, Product, ProductCategory
@@ -109,10 +110,10 @@ def basket_remove(request, basket_id):
 
 def productView(request, product_id):
     product = Product.objects.get(id=product_id)
-    images = Images.objects.filter(products_id=product_id)
-    im1 = Images.objects.get(products_id=product_id, title='image_first')
-    im2 = Images.objects.get(products_id=product_id, title='image_second')
-    im3 = Images.objects.get(products_id=product_id, title='image_last')
+    images = Images.objects.filter(products_id=product)
+    im1 = images.get(title='image_first')
+    im2 = images.get(title='image_second')
+    im3 = images.get(title='image_last')
     title = 'AppleRedStore'
 
     context = {

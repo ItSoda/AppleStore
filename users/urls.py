@@ -1,10 +1,10 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
 
-from .views import EmailVerificationView, RegistrationCreateView, \
-                                        UserLoginView, RedPasswordResetView, \
-                                        RedPasswordResetDoneView, RedPasswordResetConfirmView, RedPasswordResetCompleteView
-
+from .views import (EmailVerificationView, RedPasswordResetCompleteView,
+                    RedPasswordResetConfirmView, RedPasswordResetDoneView,
+                    RedPasswordResetView, RegistrationCreateView,
+                    UserLoginView)
 
 app_name = 'users'
 
