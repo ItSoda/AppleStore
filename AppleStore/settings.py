@@ -114,14 +114,15 @@ WSGI_APPLICATION = "AppleStore.wsgi.application"
 if DEBUG:
     DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "django.db.backends.mysql", # mysql / postgresql
         "NAME": 'AppleStore',
         "USER": 'root',
         "PASSWORD": 'nik140406',
         "HOST": 'localhost',
-        "PORT": 3306,
+        "PORT": 3306, # 5432 for postgresql
     }
 }
+    
 else:
     DATABASES = {
         "default": {

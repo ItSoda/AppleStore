@@ -21,7 +21,7 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=256, db_index=True)
     description = models.TextField()
     gb = models.CharField(default=128, max_length=128)
     price = models.DecimalField(max_digits=10, decimal_places=2)

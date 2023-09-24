@@ -1,5 +1,7 @@
 {% load static humanize %}
 
+
+
 <html>
 	<head>
 		<title>{{ title }}</title>
@@ -15,9 +17,9 @@
                 <div class="side-b side-open"><img class=php14 src="{% static 'red/img/Group 14.png' %}"></div>
             </label>
         </div>
-        <form>      
-            <input type="text" placeholder="Я ищу...">
-        </form>
+            <form action="{% url 'products:search' %}" method="get">
+                <input type="text" placeholder="Поиск в AppleStore" name="q">
+            </form>
     </div>
     <input type="checkbox" id="side-checkbox" />
     <div class="side-panel">
