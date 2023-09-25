@@ -120,8 +120,6 @@ def productView(request, product_id):
         'title': title,
         'products': product,
         'images': images,
-        'im1': im1,
-        'im2': im2,
-        'im3': im3,
+        'im_list': [im1, im2, im3]
     }
     return render(request, 'products/product.html', context)
