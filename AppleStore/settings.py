@@ -36,6 +36,10 @@ env = environ.Env(
     STRIPE_PUBLIC_KEY=(str),
     STRIPE_SECRET_KEY=(str),
     WEBHOOK_SECRET_KEY=(str),
+
+    TELEGRAM_BOT_TOKEN=(str),
+    ADMIN_ID=(int),
+    
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -72,7 +76,8 @@ INSTALLED_APPS = [
 
     "products",
     "users",
-    "orders"
+    "orders",
+    "tg_bot",
 
 ]
 
@@ -234,5 +239,7 @@ STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 WEBHOOK_SECRET_KEY = env('WEBHOOK_SECRET_KEY')
 
+# TELEGRAM BOT
 
-
+TELEGRAM_BOT_TOKEN = env('TELEGRAM_BOT_TOKEN')
+ADMIN_ID = env('ADMIN_ID')
