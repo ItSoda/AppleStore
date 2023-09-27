@@ -57,7 +57,8 @@ def site(message):
 
 @bot.message_handler(commands=['help'])
 def help(message):
-    bot.send_message(message.chat.id, '<b>Help</b> information', parse_mode='html')
+    text = 'Команды: /help - Помощь \n/site - Переход на наш сайт \n/start - перезапуск бота \nСкидывайте фото - оценка вашего фото'
+    bot.send_message(message.chat.id, f'Приветствую {message.from_user.first_name}\n \n{text}', parse_mode='html')
 
 @bot.message_handler(content_types=['photo'])
 def get_photo(message):
@@ -66,7 +67,7 @@ def get_photo(message):
     btn2 = types.InlineKeyboardButton('Delete photo', callback_data='delete')
 
     markup.row(btn1, btn2)
-    markup.add(types.InlineKeyboardButton('edit photo', callback_data='edit'))
+    markup.add(types.InlineKeyboardButton('edit text', callback_data='edit'))
     
     bot.reply_to(message, 'Какое красивое фото', reply_markup=markup)
 
