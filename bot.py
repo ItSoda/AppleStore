@@ -1,8 +1,13 @@
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'AppleStore.settings')
+import django
+django.setup()
+
 import telebot
 import webbrowser
 from telebot import types
 from django.conf import settings
-from models import TG_USER
+from tg_bot.models import TG_USER
 
 
 # Вставляем токен бота 
@@ -24,11 +29,13 @@ def handle_start(message):
     # markup.row(btn1, btn2)
     # markup.add(types.KeyboardButton('edit photo'))
 
-    if TG_USER.objects.get(user_id, False):
-        TG_USER.objects.create(user_id, username, first_name, last_name)
-        bot.send_message(message.chat.id, f"Привет, {first_name}! Вы были успешно зарегистрированы.")
-    else:
-        bot.reply_to(message, f"Мы всегда с вами! {first_name}")
+    try:
+        if TG_USER.objects.get(user_id=user_id):
+            bot.reply_to(message, f"Мы всегда с вами! {first_name}")
+        
+    except TG_USER.DoesNotExist:
+        TG_USER.objects.create(user_id=user_id, username=username, first_name=first_name, last_name=last_name)
+        bot.send_message(message.chat.id, f"Привет, {first_name}! ")
     
     # bot.register_next_step_handler(message, on_click)
 
@@ -57,7 +64,7 @@ def site(message):
 
 @bot.message_handler(commands=['help'])
 def help(message):
-    text = 'Команды: /help - Помощь \n/site - Переход на наш сайт \n/start - перезапуск бота \nСкидывайте фото - оценка вашего фото'
+    text = 'Команды: /help - Помощь \n/site - Переход на наш сайт для компов | ссылка для телефонов https://red-store.site/ \n/start - перезапуск бота \nСкидывайте фото - оценка вашего фото'
     bot.send_message(message.chat.id, f'Приветствую {message.from_user.first_name}\n \n{text}', parse_mode='html')
 
 @bot.message_handler(content_types=['photo'])
@@ -88,8 +95,9 @@ def info(message):
 
 
 # Установка вебхука
-bot.remove_webhook()
-bot.set_webhook(url=f'https://red-store.site/bot_token/')
+bot.polling(non_stop=True)
+
+# bot.set_webhook(url=f'https://red-store.site/bot_token/')
 
 
 

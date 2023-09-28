@@ -39,11 +39,11 @@ class Search(ListView):
     template_name = 'products/catalog.html'
 
     def get_queryset(self):
-        search_query = self.request.GET.get('q', '')
-        if search_query:
-            return Product.objects.filter(name__iregex=search_query)
-        else:
-            return Product.objects.all()
+            search_query = self.request.GET.get('q', '')
+            if ('[' or ']') not in search_query : # Допилить поиск чтобы все проходило
+                return Product.objects.filter(name__iregex=search_query)
+            else:
+                return Product.objects.all()
         
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)

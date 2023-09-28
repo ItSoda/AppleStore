@@ -22,7 +22,6 @@ from django.urls import include, path
 from orders.views import stripe_webhook_view
 from products.views import IndexListView
 from django.views.decorators.csrf import csrf_exempt
-from tg_bot.views import TelegramBotWebhook
 
 
 
@@ -34,7 +33,7 @@ urlpatterns = [
     path("orders/", include('orders.urls', namespace='orders')),
     path("webhook/stripe/", stripe_webhook_view, name='stripe_webhook'),
     path('accounts/', include("django.contrib.auth.urls")),
-    path(f'bot_token/', csrf_exempt(TelegramBotWebhook.as_view()), name='bot_webhook'),
+    # path(f'bot_token/', csrf_exempt(TelegramBotWebhook.as_view()), name='bot_webhook'),
 ]
 
 
