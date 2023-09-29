@@ -1,4 +1,4 @@
-{% load static humanize %}
+{% load static humanize cache %}
 
 
 
@@ -62,7 +62,7 @@
         <div class="pouring">Новые модели. Выбирайте.</div>
         <p class=in_cat>Новое поступление запакованных iPhone, пожалуй,по самым лучшим ценам и условиям рассрочки!</p>
         <div class="product">
-        {% for category in categories_iphone %}
+        {% for category in category_dict.iphone %}
         <div class="carde"> 
         <div class="card">
             <div class="card__top">
@@ -109,7 +109,7 @@
         <img class=php30 src="{% static 'red/img/image 30.png' %}">
     <div class="aircat">
     <!-- Товар #1 -->
-    {% for airpod in categories_pods %}
+    {% for airpod in category_dict.airpods %}
         <div class="carde_pod"> 
         <div class="card">
             <div class="card__top">
@@ -130,7 +130,7 @@
         <img class=php30 src="{% static 'red/img/image 35 (1).png' %}">
     <div class="aircat">
     <!-- Товар #1 -->
-    {% for watch in categories_watch %}
+    {% for watch in category_dict.watch %}
         <div class="carde_watch"> 
         <div class="card">
             <div class="card__top">
@@ -145,14 +145,16 @@
     {% endfor %}
     </div>
     </div>
+        </div>
     <img class=php26 src="{% static 'red/img/image 45.png' %}">
     <div class="watchs">
+
         <div class="pouring">iPad. Чтобы идеи вырастали большими.</div>
         <p class=pods>iPad mini с новым чипом A15 Bionic,<br> Apple Pencil (2‑го поколения) и<br> такими приложениями, как<br> Procreate и iMovie, поможет вам<br> полнее раскрыть свой творческий<br> потенциал.<br></p>
         <img class=php46 src="{% static 'red/img/image 46.png' %}">
     <div class="aircat">
     <!-- Товар #1 -->
-    {% for ipad in categories_ipad %}
+    {% for ipad in category_dict.ipad %}
         <div class="carde_watch"> 
         <div class="card">
             <div class="card__top">
@@ -172,7 +174,7 @@
         <p class=pods>Новый MacBook Pro с дисплеем<br> Liquid Retina XDR отличается<br> новым дизайном и оснащается<br> мощным чипом — M1<br> Pro или M1 Max.</p>
         <img class=php53 src="{% static 'red/img/image 53.png' %}">
     <div class="book">
-        {% for mac in categories_mac %}
+        {% for mac in category_dict.mac %}
         <div class="carde_watch"> 
         <div class="card">
             <div class="card__top">

@@ -2,7 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse
 from django.views.generic.list import ListView
-
+from django.db.models import Q
+from django.core.cache import cache
 from common.views import TitleMixin
 
 from .models import Basket, Images, Product, ProductCategory
@@ -26,11 +27,45 @@ class IndexListView(TitleMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexListView, self).get_context_data(**kwargs)
-        context['categories_iphone'] = ProductCategory.objects.filter(name__startswith="iPhone ").order_by('id')
-        context['categories_pods'] = ProductCategory.objects.filter(name__startswith="Apple AirPods ").order_by('id')
-        context['categories_watch'] = ProductCategory.objects.filter(name__startswith="Apple Watch ").order_by('id')
-        context['categories_ipad'] = ProductCategory.objects.filter(name__startswith="iPad ").order_by('id')
-        context['categories_mac'] = ProductCategory.objects.filter(name__startswith="Mac").order_by('id') | ProductCategory.objects.filter(name__startswith="iMac ").order_by('id')
+        categories = cache.get('products_category')
+
+        # Фильтрация категорий с использованием Q-объектов
+        if categories is None:
+            categories = ProductCategory.objects.filter(
+                Q(name__startswith="iPhone") |
+                Q(name__startswith="Apple AirPods") |
+                Q(name__startswith="Apple Watch") |
+                Q(name__startswith="iPad") |
+                Q(name__startswith="Mac")
+            )
+            
+            cache.set("products_category", categories, 10)
+        # Создание словаря для категорий с разными ключами
+        category_dict = {
+            'iphone': [],
+            'airpods': [],
+            'watch': [],
+            'ipad': [],
+            'mac': [],
+        }
+        
+        # Разделение категорий по ключам
+        for category in categories:
+            if category.name.startswith("iPhone"):
+                category_dict['iphone'].append(category)
+            elif category.name.startswith("Apple AirPods"):
+                category_dict['airpods'].append(category)
+            elif category.name.startswith("Apple Watch"):
+                category_dict['watch'].append(category)
+            elif category.name.startswith("iPad"):
+                category_dict['ipad'].append(category)
+            elif category.name.startswith("Mac"):
+                category_dict['mac'].append(category)
+            elif category.name.startswith("iMac"):
+                category_dict['mac'].append(category)
+        
+        # Добавление словаря с категориями в контекст
+        context['category_dict'] = category_dict
         return context
 
 
