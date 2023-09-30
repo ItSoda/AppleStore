@@ -43,16 +43,38 @@ def handle_start(message):
 @bot.message_handler(commands=['send_message'])
 def send_message(message):
     if message.chat.id == settings.ADMIN_ID:
+        markup = types.ForceReply(selective=False)
+        bot.send_message(message.chat.id, "Введите текст сообщения, которое хотите отправить:", reply_markup=markup)
+        bot.register_next_step_handler(message, process_text)
+    else:
+        bot.send_message(message.chat.id, 'Вы не администратор')
+
+def process_text(message):
+    text = message.text.strip()
+    markup = types.ForceReply(selective=False)
+    bot.send_message(message.chat.id, "Теперь отправьте фотографию для этого сообщения: \nЕсли не хотите то '-'", reply_markup=markup)
+    bot.register_next_step_handler(message, process_photo, text)
+
+def process_photo(message, text):
+    if message.photo:
+        photo = message.photo[-1].file_id  # Получаем file_id фотографии
         users = TG_USER.objects.all()
-        text = message.text.replace('/send_message', '').strip()
 
         for user in users:
             try:
-                bot.send_message(user.user_id, text=text)
+                bot.send_photo(user.user_id, photo, caption=text)
             except Exception as e:
                 print(f'Произошла ошибка {e}')
+        else:
+            bot.send_message(message.chat.id, 'Рассылка завершена')
     else:
-        bot.send_message(message.chat.id, 'Вы не администратор')
+        users = TG_USER.objects.all()
+
+        for user in users:
+            try:
+                bot.send_message(user.user_id, text)
+            except Exception as e:
+                print(f'Произошла ошибка {e}')
 
 # def on_click(message):
 #     if message.text == 'Our site':

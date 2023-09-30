@@ -21,9 +21,9 @@
             </div>
         {% endfor %}
             <div class="switch">
-                <span class="dot" onclick="currentSlide(1)"><img class=php_dot src="{{ im_list.0.img.url }}"></span>
-                <span class="dot" onclick="currentSlide(2)"><img class=php_dot src="{{ im_list.1.img.url }}"></span> 
-                <span class="dot" onclick="currentSlide(3)"><img class=php_dot src="{{ im_list.2.img.url }}"></span> 
+                <span class="dot" onclick="currentSlide(1)"><img class=php_dot src="{{ image_dict.first.img.url }}"></span>
+                <span class="dot" onclick="currentSlide(2)"><img class=php_dot src="{{ image_dict.second.img.url }}"></span> 
+                <span class="dot" onclick="currentSlide(3)"><img class=php_dot src="{{ image_dict.last.img.url }}"></span> 
             </div>
         </div>
         <div class="price">

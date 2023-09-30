@@ -144,17 +144,28 @@ def basket_remove(request, basket_id):
 
 
 def productView(request, product_id):
+    title = 'AppleRedStore'
     product = Product.objects.get(id=product_id)
     images = Images.objects.filter(products_id=product)
-    im1 = images.get(title='image_first')
-    im2 = images.get(title='image_second')
-    im3 = images.get(title='image_last')
-    title = 'AppleRedStore'
+
+    image_dict = {
+        'first': {},
+        'second': {},
+        'last': {},
+    }
+
+    for image in images:
+        if image.title.startswith('image_fir'):
+            image_dict['first'] = image
+        elif image.title.startswith('image_sec'):
+            image_dict['second'] = image
+        elif image.title.startswith('image_la'):
+            image_dict['last'] = image
 
     context = {
         'title': title,
         'products': product,
         'images': images,
-        'im_list': [im1, im2, im3]
+        'image_dict': image_dict
     }
     return render(request, 'products/product.html', context)
