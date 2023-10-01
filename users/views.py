@@ -11,7 +11,7 @@ from django.views.generic.edit import CreateView
 
 from common.views import TitleMixin
 
-from .forms import UserLoginForm, UserRegistrationForm
+from .forms import UserLoginForm, UserRegistrationForm, RedPasswordResetForm, RedSetPasswordForm
 from .models import EmailVerification, User
 
 
@@ -45,6 +45,7 @@ class EmailVerificationView(TitleMixin, TemplateView):
 
 class RedPasswordResetView(PasswordResetView):
     template_name = 'users/password_reset.html'
+    form_class = RedPasswordResetForm
     success_url = reverse_lazy("users:password_reset_done")
     # Идет отправка почты
     email_template_name = "users/password_reset_email.html"
@@ -55,7 +56,8 @@ class RedPasswordResetDoneView(PasswordResetDoneView):
 
 class RedPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'users/password_reset_confirm.html'
-    success_url = reverse_lazy('users:password_reset_complete')
+    form_class = RedSetPasswordForm
+    success_url = reverse_lazy('users:login')
 
-class RedPasswordResetCompleteView(PasswordResetCompleteView):
-    template_name = 'users/password_reset_complete.html'
+# class RedPasswordResetCompleteView(PasswordResetCompleteView):
+#     template_name = 'users/password_reset_complete.html'

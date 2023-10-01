@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-
+from django.contrib.auth.forms import (SetPasswordForm, PasswordResetForm,)
 from users.models import User
 
 from .tasks import send_email_verify
@@ -40,3 +40,20 @@ class UserRegistrationForm(UserCreationForm):
         user = super(UserRegistrationForm, self).save(commit=True)
         send_email_verify.delay(user.id)
         return user
+    
+class RedPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        max_length=254,
+        widget=forms.EmailInput(attrs={"autocomplete": "email", 'placeholder': 'Почта'}),
+    )
+    
+
+class RedSetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", 'placeholder':'Введите пароль'}),
+        strip=False,
+    )
+    new_password2 = forms.CharField(
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", 'placeholder':'Повторите пароль'}),
+    )
