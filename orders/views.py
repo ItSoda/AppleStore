@@ -59,9 +59,11 @@ def stripe_webhook_view(request):
     if event['type'] == 'checkout.session.completed':
         # Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
         session = stripe.checkout.Session.retrieve(
-        event['data']['object']['id'],
-        expand=['line_items'],
+            event['data']['object']['id'],
+            expand=['line_items'],
         )
+        order_id = int(session['metadata']['order_id'])
+        
 
         line_items = session
         # Fulfill the purchase...
@@ -70,6 +72,6 @@ def stripe_webhook_view(request):
     return HttpResponse(status=200)
 
 def fulfill_order(line_items):
-    order_id = int(line_items.metadata.order_id)
+    order_id = int(line_items['metadata']['order_id'])
     order = Order.objects.get(id=order_id)
     order.update_after_payments()
