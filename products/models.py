@@ -4,8 +4,6 @@ from django.db import models
 
 from users.models import User
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=128, unique=True)
@@ -31,7 +29,6 @@ class Product(models.Model):
     quantity = models.PositiveBigIntegerField(default=0)
     discount = models.IntegerField(default=0)
     image = models.ImageField(upload_to='product_images', null=True, blank=True)
-    stripe_product_price_id = models.CharField(max_length=128, null=True, blank=True)
     category = models.ManyToManyField(ProductCategory)
 
     class Meta:
@@ -73,15 +70,11 @@ class Images(models.Model):
         return self.title
 
 class BasketQuerySet(models.QuerySet):
-    def stripe_products(self):
-        line_items = []
-        for basket in self:
-            item = {
-                'price': basket.product.stripe_product_price_id,
-                'quantity': basket.quantity
-            }
-            line_items.append(item)
-        return line_items
+    def total_sum(self):
+        return sum([basket.sum() for basket in self])
+
+    def total_quantity(self):
+        return sum([basket.quantity for basket in self])
 
 class Basket(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)

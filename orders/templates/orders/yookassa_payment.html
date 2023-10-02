@@ -1,0 +1,16 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Оплата</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'red/css/yookassa_payment.css' %}">
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Оплата заказа</h1>
+        <p>Сумма к оплате: {{ order_price }} Руб</p>
+        <a href="{{ payment_url }}" class="payment-button">Оплатить</a>
+    </div>
+</body>
+</html>
