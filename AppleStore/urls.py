@@ -21,7 +21,7 @@ from django.urls import include, path
 
 from products.views import IndexListView
 from django.views.decorators.csrf import csrf_exempt
-
+from orders.views import yookassa_webhook
 
 
 urlpatterns = [
@@ -31,6 +31,7 @@ urlpatterns = [
     path("users/", include('users.urls', namespace='users')),
     path("orders/", include('orders.urls', namespace='orders')),
     path('accounts/', include("django.contrib.auth.urls")),
+    path("webhook/yookassa/", yookassa_webhook, name='webhook_yookassa'),
 ]
 
 

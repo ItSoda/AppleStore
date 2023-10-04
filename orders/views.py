@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
-
+import json 
 import stripe
 from django.conf import settings
 from django.shortcuts import HttpResponse, render
@@ -17,8 +17,10 @@ from .forms import OrderForm
 from .models import Order
 import uuid
 from yookassa import Configuration, Payment
-from yookassa.domain.notification import WebhookNotification
+from yookassa.domain.notification import WebhookNotificationFactory
+import logging
 
+logger = logging.getLogger(__name__)
 
 
 class OrderCreateView(TitleMixin, CreateView):
@@ -74,22 +76,23 @@ def yookassa_payment(request):
 
 @csrf_exempt
 def yookassa_webhook(request):
-    if request.method == 'POST':
-        try:
-            notification = WebhookNotification(request.body)
-            
-            # Проверяем статус платежа
-            if notification.event == 'payment.succeeded':
-                # Получаем айди заказа из метаданных уведомления
-                order_id = notification.object.metadata.get('order_id')
-                order = Order.objects.get(id=order_id)
-                order.update_after_payments()
-                # Обновляем статус заказа, например, на "оплачен"
-                # Ваш код для обновления статуса заказа здесь
+    event_json = json.loads(request.body.decode("utf-8"))
+
+    try:
+        logger.info(f'Responce: {event_json}')
+        notification = WebhookNotificationFactory().create(event_json)
+        logger.info('Webhook isnt create')
+        # Проверяем статус платежа
+        if notification.event == 'payment.succeeded':
+            # Получаем айди заказа из метаданных уведомления
+            order_id = notification.object.metadata.get('order_id')
+            order = Order.objects.get(id=order_id)
+            logger.info('good')
+            order.update_after_payments()
+        # Обновляем статус заказа, например, на "оплачен"
+            # Ваш код для обновления статуса заказа здесь
                 
-            return HttpResponse(status=200)
-        except Exception as e:
-            # Обработка ошибок при разборе уведомления
-            return HttpResponse(status=500)
-    else:
-        return HttpResponse(status=405)
+    except Exception as e:
+        logger.info('Ошибка создания вебхука %s', str(e))
+                # Обработка ошибок при разборе уведомления
+    return HttpResponse(status=200)
