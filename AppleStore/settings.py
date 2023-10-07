@@ -71,12 +71,16 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "django_extensions",
     "debug_toolbar",
+    "rest_framework",
+    "rest_framework.authtoken",
     "celery",
 
     "products",
     "users",
     "orders",
     "tg_bot",
+    "api",
+
 
 ]
 
@@ -119,7 +123,7 @@ if DEBUG:
     DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql", # mysql / postgresql
-        "NAME": 'AppleStore',
+        "NAME": 'AppleStoreAPI',
         "USER": 'root',
         "PASSWORD": 'nik140406',
         "HOST": 'localhost',
@@ -138,7 +142,15 @@ else:
             "PORT": env('DATABASES_PORT'),
         }
     }
+# Django REST framework
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 2,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 # debug toolbar
 
@@ -186,7 +198,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "ru-ru"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 
