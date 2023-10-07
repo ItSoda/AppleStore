@@ -32,7 +32,7 @@ class Order(models.Model):
     def __str__(self):
         return f'Order #{self.id} | {self.first_name} {self.last_name}'
 
-    def update_after_payments(self):
+    def update_after_success_payments(self):
         baskets = Basket.objects.filter(user=self.initiator)
         self.status = self.PAID
         purchased_item = []
@@ -47,4 +47,10 @@ class Order(models.Model):
             'total_price': total_price,
         }
         baskets.delete()
+        self.save()
+
+    def update_after_canceled_payments(self):
+        baskets = Basket.objects.filter(user=self.initiator)
+        baskets.delete()
+        self.delete()
         self.save()

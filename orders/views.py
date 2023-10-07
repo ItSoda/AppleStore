@@ -63,6 +63,7 @@ def yookassa_payment(request):
             'return_url': reverse_lazy('index')
         },
         "capture": True,
+        "save_payment_method": True,
         'description': f'Order #{order_id}',
         'metadata': {
             'order_id': order_id,
@@ -81,17 +82,19 @@ def yookassa_webhook(request):
     try:
         logger.info(f'Responce: {event_json}')
         notification = WebhookNotificationFactory().create(event_json)
-        logger.info('Webhook isnt create')
+        logger.info('Webhook is create')
+        # Получаем айди заказа из метаданных уведомления
+        order_id = notification.object.metadata.get('order_id')
+        order = Order.objects.get(id=order_id)
         # Проверяем статус платежа
-        if notification.event == 'payment.succeeded':
-            # Получаем айди заказа из метаданных уведомления
-            order_id = notification.object.metadata.get('order_id')
-            order = Order.objects.get(id=order_id)
+        if notification.object.status == 'succeeded':
             logger.info('good')
-            order.update_after_payments()
-        # Обновляем статус заказа, например, на "оплачен"
-            # Ваш код для обновления статуса заказа здесь
-                
+            order.update_after_success_payments()
+            # Обновляем статус заказа
+        elif notification.object.status == 'canceled':
+            logger.info('bad')
+            order.update_after_canceled_payments()
+            # Обновляем статус заказа
     except Exception as e:
         logger.info('Ошибка создания вебхука %s', str(e))
                 # Обработка ошибок при разборе уведомления
