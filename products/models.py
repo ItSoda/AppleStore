@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.db import models
+from django.db.models.query import QuerySet
+
 from users.models import User
 
 
@@ -52,12 +54,25 @@ class Images(models.Model):
     def __str__(self) -> str:
         return self.title
 
+# modelsQuerySet and modelsManager
 class BasketQuerySet(models.QuerySet):
     def total_sum(self):
         return sum([basket.sum() for basket in self])
 
     def total_quantity(self):
         return sum([basket.quantity() for basket in self])
+    
+
+class BasketManager(models.Manager):
+    def get_queryset(self):
+        return BasketQuerySet(self.model)
+    
+    def total_sum(self):
+        return self.get_queryset().total_sum()
+    
+    def total_quantity(self):
+        return self.get_queryset().total_quantity()
+
 
 class Basket(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
@@ -65,7 +80,8 @@ class Basket(models.Model):
     quantity = models.IntegerField(default=0)
     created_timestamp = models.DateTimeField(auto_now_add=True)
 
-    objects = BasketQuerySet.as_manager()
+    objects = models.Manager()
+    basketmanager = BasketManager()
 
     def __str__(self):
         return f'Корзина для {self.user} | Продукт {self.product}'

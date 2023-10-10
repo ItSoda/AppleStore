@@ -18,11 +18,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-
-from products.views import IndexListView
 from django.views.decorators.csrf import csrf_exempt
-from orders.views import yookassa_webhook
 
+from orders.views import yookassa_webhook
+from products.views import IndexListView
 
 urlpatterns = [
     path("admin/", admin.site.urls),

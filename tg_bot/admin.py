@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import TG_USER
 
+from .models import TG_USER
 
 
 @admin.register(TG_USER)

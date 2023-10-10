@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "rest_framework",
     "rest_framework.authtoken",
+    'djoser',
     "celery",
 
     "products",
@@ -150,6 +151,17 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ]
+}
+
+# Djoser
+
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': "#/password/reset/confirm/{uid}/{token}",
+    'USERNAME_RESET_CONFIRM_URL': "#/password/reset/confirm/{uid}/{token}",
+    'ACTIVATION_URL': "#/activate/{uid}/{token}",
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {},
 }
 
 # debug toolbar

@@ -1,23 +1,33 @@
-from rest_framework.generics import ListAPIView
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import filters, status
+from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import status
-from products.models import Product, ProductCategory, Basket
-from products.serializers import ProductSerializer, ProductCategorySerializer, BasketSerializer
+from rest_framework.viewsets import ModelViewSet
+
+from orders.models import Order
+from orders.serializers import OrderSerializer
+from products.models import Basket, Product, ProductCategory
+from products.serializers import (BasketSerializer, ProductCategorySerializer,
+                                  ProductSerializer)
+from users.models import User
+from users.serializers import UserSerializer
+
 from .permissions import IsAdminOrReadOnly
+
 
 # ModelViewSet is consisting of GET POST PUT PATCH DELETE
 class ProductModelViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = (IsAdminOrReadOnly, )
+    pagination_class = None
 
 
-class ProductCategoryListAPIView(ListAPIView):
+class CategoryModelViewSet(ModelViewSet):
     queryset = ProductCategory.objects.all()
     serializer_class = ProductCategorySerializer
     permission_classes = (IsAdminOrReadOnly, )
+    pagination_class = None
 
 
 class BasketModelViewSet(ModelViewSet):
@@ -44,3 +54,29 @@ class BasketModelViewSet(ModelViewSet):
             return Response(serializer.data, status=status_code)
         except KeyError:
             return Response({'product': 'product_id is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductSearchView(ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name", "description"]
+
+
+class UserModelViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (IsAdminUser, )
+    pagination_class = None
+
+
+class OrderModelViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = (IsAdminOrReadOnly, )
+    pagination_class = None
+
+    def get_queryset(self):
+        queryset =  super(OrderModelViewSet, self).get_queryset()
+        return queryset.filter(initiator=self.request.user)
+

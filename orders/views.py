@@ -1,24 +1,24 @@
+import json
+import logging
+import uuid
 from http import HTTPStatus
-from django.forms.models import BaseModelForm
-from django.http import HttpResponse
-import json 
+
 import stripe
 from django.conf import settings
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import HttpResponse, render
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView
+from yookassa import Configuration, Payment
+from yookassa.domain.notification import WebhookNotificationFactory
 
 from common.views import TitleMixin
 from products.models import Basket
 
 from .forms import OrderForm
-
 from .models import Order
-import uuid
-from yookassa import Configuration, Payment
-from yookassa.domain.notification import WebhookNotificationFactory
-import logging
 
 logger = logging.getLogger(__name__)
 

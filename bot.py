@@ -1,14 +1,17 @@
 import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'AppleStore.settings')
 import django
+
 django.setup()
 
-import telebot
 import webbrowser
-from telebot import types
-from django.conf import settings
-from tg_bot.models import TG_USER
 
+import telebot
+from django.conf import settings
+from telebot import types
+
+from tg_bot.models import TG_USER
 
 # Вставляем токен бота 
 bot = telebot.TeleBot(settings.TELEGRAM_BOT_TOKEN)

@@ -11,7 +11,8 @@ from django.views.generic.edit import CreateView
 
 from common.views import TitleMixin
 
-from .forms import UserLoginForm, UserRegistrationForm, RedPasswordResetForm, RedSetPasswordForm
+from .forms import (RedPasswordResetForm, RedSetPasswordForm, UserLoginForm,
+                    UserRegistrationForm)
 from .models import EmailVerification, User
 
 
