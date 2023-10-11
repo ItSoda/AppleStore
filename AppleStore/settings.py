@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "rest_framework",
     "rest_framework.authtoken",
-    'djoser',
+    "djoser",
     "celery",
 
     "products",
@@ -156,11 +156,16 @@ REST_FRAMEWORK = {
 # Djoser
 
 DJOSER = {
+    'PERMISSIONS': {
+        'user_list': ['rest_framework.permissions.IsAdminUser'],
+        'password_reset': ['rest_framework.permissions.AllowAny'],
+        'password_reset_confirm': ['rest_framework.permissions.AllowAny'],
+        'set_password': ['rest_framework.permissions.AllowAny'],
+    },
     'PASSWORD_RESET_CONFIRM_URL': "#/password/reset/confirm/{uid}/{token}",
     'USERNAME_RESET_CONFIRM_URL': "#/password/reset/confirm/{uid}/{token}",
-    'ACTIVATION_URL': "#/activate/{uid}/{token}",
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
-    'SEND_ACTIVATION_EMAIL': True,
+    'SEND_ACTIVATION_EMAIL': False,
     'SERIALIZERS': {},
 }
 

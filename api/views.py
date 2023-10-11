@@ -3,6 +3,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 
 from orders.models import Order
 from orders.serializers import OrderSerializer
@@ -11,6 +12,8 @@ from products.serializers import (BasketSerializer, ProductCategorySerializer,
                                   ProductSerializer)
 from users.models import User
 from users.serializers import UserSerializer
+from djoser.views import UserViewSet
+from users.models import EmailVerification
 
 from .permissions import IsAdminOrReadOnly
 
@@ -63,11 +66,26 @@ class ProductSearchView(ListAPIView):
     search_fields = ["name", "description"]
 
 
-class UserModelViewSet(ModelViewSet):
+class EmailVerificationView(APIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAdminUser, )
     pagination_class = None
+
+    def get_queryset(self):
+        queryset = super(EmailVerificationView, self).get_queryset()
+        return queryset.filter(user=self.request.user)
+    
+    def get(self, request, *args, **kwargs):
+        code = kwargs['code']
+        user = User.objects.get(email=kwargs['email'])
+        EmailVerifications = EmailVerification.objects.filter(code=code, user=user)
+        try:
+            if EmailVerifications.exists() and not EmailVerifications.last().is_expired():
+                user.is_verified_email = True
+                user.save()
+            return Response({'EmailVerification': user.is_verified_email})
+        except Exception:
+            return Response({'EmailVerification': 'EmailVerification is expired or not exists'})
 
 
 class OrderModelViewSet(ModelViewSet):
