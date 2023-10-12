@@ -2,12 +2,16 @@ import json
 import logging
 from django.http import HttpResponse
 from django.urls import reverse
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 from rest_framework import filters, status
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
+
+from django.db.models import Q
 
 from yookassa import Configuration, Payment
 from yookassa.domain.notification import WebhookNotificationFactory
@@ -31,17 +35,37 @@ logger = logging.getLogger(__name__)
 
 # ModelViewSet is consisting of GET POST PUT PATCH DELETE
 class ProductModelViewSet(ModelViewSet):
+    
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = (IsAdminOrReadOnly, )
     pagination_class = None
-
+    
+    #Кеширование определенного метода; если метод http то просто cache_page(time_second)
+    @method_decorator(cache_page(60))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+    
 
 class CategoryModelViewSet(ModelViewSet):
     queryset = ProductCategory.objects.all()
     serializer_class = ProductCategorySerializer
     permission_classes = (IsAdminOrReadOnly, )
     pagination_class = None
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(
+                Q(name__startswith="iPhone") |
+                Q(name__startswith="Apple AirPods") |
+                Q(name__startswith="Apple Watch") |
+                Q(name__startswith="iPad") |
+                Q(name__startswith="Mac")
+            )
+
+    @method_decorator(cache_page(60))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class BasketModelViewSet(ModelViewSet):
@@ -108,6 +132,11 @@ class OrderModelViewSet(ModelViewSet):
     def get_queryset(self):
         queryset =  super(OrderModelViewSet, self).get_queryset()
         return queryset.filter(initiator=self.request.user)
+    
+    
+    @method_decorator(cache_page(60))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class OrderCreateView(APIView):
