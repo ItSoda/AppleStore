@@ -22,6 +22,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from orders.views import yookassa_webhook
 from products.views import IndexListView
+from .yasg import urlpatterns as doc_url
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -34,6 +36,7 @@ urlpatterns = [
     path("webhook/yookassa/", yookassa_webhook, name='webhook_yookassa'),
 ]
 
+urlpatterns += doc_url
 
 if settings.DEBUG:
     urlpatterns += path("__debug__/", include("debug_toolbar.urls")),

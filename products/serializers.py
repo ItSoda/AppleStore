@@ -32,4 +32,4 @@ class BasketSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_timestamp', )
 
     def get_total_sum(self, obj):
-        return Basket.objects.filter(user_id=obj.user.id).total_sum()
+        return Basket.basketmanager.filter(user_id=obj.user.id).total_sum()
