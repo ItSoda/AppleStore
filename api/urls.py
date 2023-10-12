@@ -4,7 +4,8 @@ from rest_framework.authtoken import views
 
 from api.views import (BasketModelViewSet, CategoryModelViewSet,
                        OrderModelViewSet, ProductModelViewSet,
-                       ProductSearchView, EmailVerificationView)
+                       ProductSearchView, EmailVerificationView,
+                       OrderCreateView, YookassaWebhookView,)
 
 app_name = 'api'
 
@@ -22,4 +23,6 @@ urlpatterns = [
     path(r'auth/', include('djoser.urls')),
     path(r'auth/', include('djoser.urls.authtoken')),
     path("verify/<str:email>/<uuid:code>/", EmailVerificationView.as_view(), name='email_verify'),
+    path("order/create/", OrderCreateView.as_view(), name='order_create'),
+    path("yookassa/webhook/", YookassaWebhookView.as_view(), name='yookassa_webhook'),
 ]
