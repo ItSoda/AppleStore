@@ -20,9 +20,9 @@ from django.conf import settings
 
 from orders.models import Order
 from orders.serializers import OrderSerializer
-from products.models import Basket, Product, ProductCategory
+from products.models import Basket, Product, ProductCategory, Images
 from products.serializers import (BasketSerializer, ProductCategorySerializer,
-                                  ProductSerializer)
+                                  ProductSerializer, ImageSerializer)
 from users.models import User
 from users.serializers import UserSerializer
 from djoser.views import UserViewSet
@@ -45,7 +45,28 @@ class ProductModelViewSet(ModelViewSet):
     @method_decorator(cache_page(60))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
+
+
+class ImageModelViewSet(ModelViewSet):
+    queryset = Images.objects.all()
+    serializer_class = ImageSerializer
+    permission_classes = (IsAdminOrReadOnly, )
+    pagination_class = None
+
+
+# class ProductImagesAPIView(ListAPIView):
+#     queryset = Images.objects.all()
+#     serializer_class = ImageSerializer
+
+#     def get_queryset(self, product_id):
+#         queryset = super().get_queryset()
+#         return queryset.filter(product_id=product_id)
     
+#     @method_decorator(cache_page(60))
+#     def get(self, request, *args, **kwargs):
+#         return super().get(request, *args, **kwargs)
+
+
 
 class CategoryModelViewSet(ModelViewSet):
     queryset = ProductCategory.objects.all()

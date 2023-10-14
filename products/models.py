@@ -19,6 +19,18 @@ class ProductCategory(models.Model):
         return self.name
     
 
+class Images(models.Model):
+    title = models.CharField(max_length=64, null=True, blank=True)
+    img = models.ImageField(upload_to='all_images')
+    # products_id = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'фотография'
+        verbose_name_plural = 'фотографии'
+
+    def __str__(self) -> str:
+        return self.title
+
 
 class Product(models.Model):
     name = models.CharField(max_length=256, db_index=True)
@@ -28,8 +40,9 @@ class Product(models.Model):
     color = models.CharField(max_length=128, blank=True, null=True)
     quantity = models.PositiveBigIntegerField(default=0)
     discount = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='product_images', null=True, blank=True)
+    # image = models.ImageField(upload_to='product_images', null=True, blank=True)
     category = models.ManyToManyField(ProductCategory)
+    images = models.ManyToManyField(Images)
 
     class Meta:
         verbose_name = 'Продукт'
@@ -41,18 +54,6 @@ class Product(models.Model):
     def discount_price(self):
         return round(float(self.price) - float(self.price) * float((self.discount / 100)))
 
-
-class Images(models.Model):
-    title = models.CharField(max_length=64, null=True, blank=True)
-    img = models.ImageField(upload_to='all_images')
-    products_id = models.ForeignKey(to=Product, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'фотография'
-        verbose_name_plural = 'фотографии'
-
-    def __str__(self) -> str:
-        return self.title
 
 # modelsQuerySet and modelsManager
 class BasketQuerySet(models.QuerySet):

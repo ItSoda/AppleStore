@@ -5,12 +5,14 @@ from rest_framework.authtoken import views
 from api.views import (BasketModelViewSet, CategoryModelViewSet,
                        OrderModelViewSet, ProductModelViewSet,
                        ProductSearchView, EmailVerificationView,
-                       OrderCreateView, YookassaWebhookView,)
+                       OrderCreateView, YookassaWebhookView,
+                       ImageModelViewSet)
 
 app_name = 'api'
 
 router = routers.DefaultRouter()
 router.register(r'products', ProductModelViewSet)
+router.register(r'images', ImageModelViewSet)
 router.register(r'baskets', BasketModelViewSet)
 router.register(r'categories', CategoryModelViewSet)
 router.register(r'orders', OrderModelViewSet)
