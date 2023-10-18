@@ -9,9 +9,11 @@ from .managers import CustomUserManager
 
 
 class User(AbstractUser):
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50, null=True)
     email = models.EmailField(unique=True, )
-    username = models.CharField(max_length=30, unique=False, blank=True, null=True)
     is_verified_email = models.BooleanField(default=False)
+    username = None
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -20,7 +22,7 @@ class User(AbstractUser):
     objects = CustomUserManager()
 
     def __str__(self):
-        return f'Пользователь {self.email}'
+        return f'Пользователь {self.email} | {self.first_name}'
 
 
 class EmailVerification(models.Model):

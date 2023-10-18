@@ -2,6 +2,7 @@ import json
 import logging
 from django.http import HttpResponse
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from rest_framework import filters, status
@@ -122,26 +123,36 @@ class ProductSearchView(ListAPIView):
     search_fields = ["name", "description"]
 
 
-class EmailVerificationView(APIView):
-    queryset = User.objects.all()
+class EmailVerificationAndUserUpdateView(APIView):
     serializer_class = UserSerializer
     pagination_class = None
 
-    def get_queryset(self):
-        queryset = super(EmailVerificationView, self).get_queryset()
-        return queryset.filter(user=self.request.user)
-    
     def get(self, request, *args, **kwargs):
-        code = kwargs['code']
-        user = User.objects.get(email=kwargs['email'])
-        EmailVerifications = EmailVerification.objects.filter(code=code, user=user)
+        code = kwargs.get('code')
+        email = kwargs.get('email')
+        user = get_object_or_404(User, email=email)
+        email_verifications = EmailVerification.objects.filter(code=code, user=user)
         try:
-            if EmailVerifications.exists() and not EmailVerifications.last().is_expired():
+            if email_verifications.exists() and not email_verifications.last().is_expired():
                 user.is_verified_email = True
                 user.save()
-            return Response({'EmailVerification': user.is_verified_email})
-        except Exception:
+                self.request.session['user_id'] = user.id
+                return Response({'EmailVerification': user.is_verified_email})
             return Response({'EmailVerification': 'EmailVerification is expired or not exists'})
+        except Exception:
+            return Response({'EmailVerification': 'An error occurred'})
+        
+    def patch(self, request, *args, **kwargs):
+        user_id = request.session.get('user_id', )
+        # Проверяем наличие 'first_name' и 'last_name' в данных
+        if 'first_name' not in request.data or 'last_name' not in request.data:
+            return Response({'message': 'Имя и Фамилия обязательны'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = get_object_or_404(User, id=user_id)
+        user.first_name = request.data['first_name']
+        user.last_name = request.data['last_name']
+        user.save()
+        return Response({'message': "Имя и Фамилия добавлены"}, status=status.HTTP_200_OK)
 
 
 class OrderModelViewSet(ModelViewSet):
